@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Handshake, MessageCircle, Send, UsersRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroAsset from "@/assets/yerevan-sunset.jpg.asset.json";
+const heroUrl = "/yerevan-sunset.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    links: [{ rel: "preload", href: heroAsset.url, as: "image" }],
+    links: [{ rel: "preload", href: heroUrl, as: "image" }],
     meta: [
       { title: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
       { name: "description", content: "Клуб живых знакомств для совместного предпринимательства и не только. Вход после встречи с любым участником." },
@@ -30,7 +30,7 @@ function Index() {
     <main className="flex h-[100svh] flex-col overflow-hidden bg-background text-foreground">
       <header
         className="relative flex min-h-0 shrink-0 basis-[51%] flex-col overflow-hidden bg-cover bg-[position:center_63%] text-primary-foreground sm:basis-[55%] sm:bg-[position:center_57%]"
-        style={{ backgroundImage: `url("${heroAsset.url}")` }}
+        style={{ backgroundImage: `url("${heroUrl}")` }}
       >
         <div className="absolute inset-0 bg-linear-to-b from-hero-overlay/35 via-hero-overlay/25 to-hero-overlay/90" />
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-5 py-4 text-center sm:px-10 lg:px-16">
