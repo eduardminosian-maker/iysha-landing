@@ -23,64 +23,52 @@ export const Route = createFileRoute("/faq")({
 
 type Word = {
   text: string;
-  x: number; // % from the left edge
+  x: number; // % from the left edge of its side column
   y: number; // % from the top edge
   rotate: number;
   size: string; // CSS font-size
   color: string; // Tailwind text color class
   style: "serif" | "bold" | "light";
-  desktopOnly?: boolean;
 };
 
-// Scattered along the diagonals, in the brand colors, behind the content.
-const words: Word[] = [
-  { text: "Комьюнити", x: 3, y: 5, rotate: -10, size: "clamp(1.6rem,4.2vw,3.6rem)", color: "text-mural-clay", style: "serif" },
-  { text: "Бизнес", x: 62, y: 3, rotate: 8, size: "clamp(1.4rem,3.4vw,3rem)", color: "text-telegram", style: "bold" },
-  { text: "Нетворкинг", x: 74, y: 13, rotate: -6, size: "clamp(1.1rem,2.6vw,2.4rem)", color: "text-mural-olive", style: "light" },
-  { text: "Дружба", x: 6, y: 20, rotate: 12, size: "clamp(1.4rem,3.6vw,3.2rem)", color: "text-primary", style: "serif" },
-  { text: "Любовь", x: 80, y: 27, rotate: -14, size: "clamp(1.6rem,4vw,3.6rem)", color: "text-skin", style: "serif" },
-  { text: "Идеи", x: 2, y: 36, rotate: -4, size: "clamp(1.2rem,3vw,2.6rem)", color: "text-mural-olive", style: "bold" },
-  { text: "Партнёрство", x: 70, y: 41, rotate: 7, size: "clamp(1.1rem,2.6vw,2.4rem)", color: "text-mural-clay", style: "light", desktopOnly: true },
-  { text: "Доверие", x: 8, y: 50, rotate: 10, size: "clamp(1.3rem,3.2vw,2.8rem)", color: "text-telegram", style: "serif" },
-  { text: "Проекты", x: 76, y: 55, rotate: -9, size: "clamp(1.2rem,3vw,2.6rem)", color: "text-primary", style: "bold" },
-  { text: "Встречи", x: 1, y: 63, rotate: -12, size: "clamp(1.1rem,2.6vw,2.4rem)", color: "text-mural-ink", style: "light" },
-  { text: "Команда", x: 66, y: 68, rotate: 6, size: "clamp(1.4rem,3.6vw,3.2rem)", color: "text-mural-olive", style: "serif" },
-  { text: "Вдохновение", x: 5, y: 76, rotate: 8, size: "clamp(1.2rem,3vw,2.6rem)", color: "text-skin", style: "bold" },
-  { text: "Единомышленники", x: 55, y: 80, rotate: -5, size: "clamp(1rem,2.2vw,2rem)", color: "text-mural-clay", style: "light", desktopOnly: true },
-  { text: "Ереван", x: 80, y: 88, rotate: -12, size: "clamp(1.6rem,4.2vw,3.8rem)", color: "text-mural-clay", style: "serif" },
-  { text: "Смыслы", x: 3, y: 90, rotate: -8, size: "clamp(1.3rem,3.2vw,2.8rem)", color: "text-telegram", style: "serif" },
-  { text: "Рост", x: 30, y: 93, rotate: 5, size: "clamp(1.1rem,2.6vw,2.2rem)", color: "text-primary", style: "bold", desktopOnly: true },
-  { text: "Знакомства", x: 24, y: 1, rotate: 4, size: "clamp(1rem,2.2vw,2rem)", color: "text-mural-olive", style: "light", desktopOnly: true },
-  { text: "Общение", x: 88, y: 70, rotate: 14, size: "clamp(1rem,2.2vw,2rem)", color: "text-mural-ink", style: "light", desktopOnly: true },
+// Words live only in the empty side margins (wide screens), so they never
+// sit under the questions. Scattered along the diagonals, in the brand colors.
+const leftWords: Word[] = [
+  { text: "Комьюнити", x: 8, y: 6, rotate: -10, size: "clamp(1.4rem,2.3vw,2.4rem)", color: "text-mural-clay", style: "serif" },
+  { text: "Дружба", x: 40, y: 19, rotate: 9, size: "clamp(1.3rem,2.1vw,2.2rem)", color: "text-primary", style: "serif" },
+  { text: "Идеи", x: 6, y: 32, rotate: -5, size: "clamp(1.1rem,1.8vw,1.9rem)", color: "text-mural-olive", style: "bold" },
+  { text: "Доверие", x: 34, y: 46, rotate: 11, size: "clamp(1.2rem,2vw,2.1rem)", color: "text-telegram", style: "serif" },
+  { text: "Встречи", x: 8, y: 59, rotate: -12, size: "clamp(0.9rem,1.3vw,1.4rem)", color: "text-mural-ink", style: "light" },
+  { text: "Вдохновение", x: 22, y: 72, rotate: 8, size: "clamp(1rem,1.6vw,1.7rem)", color: "text-skin", style: "bold" },
+  { text: "Смыслы", x: 6, y: 88, rotate: -8, size: "clamp(1.3rem,2.1vw,2.2rem)", color: "text-telegram", style: "serif" },
+];
+
+const rightWords: Word[] = [
+  { text: "Бизнес", x: 14, y: 5, rotate: 8, size: "clamp(1.2rem,1.9vw,2rem)", color: "text-telegram", style: "bold" },
+  { text: "Нетворкинг", x: 30, y: 17, rotate: -6, size: "clamp(0.9rem,1.3vw,1.4rem)", color: "text-mural-olive", style: "light" },
+  { text: "Любовь", x: 10, y: 31, rotate: -13, size: "clamp(1.4rem,2.3vw,2.4rem)", color: "text-skin", style: "serif" },
+  { text: "Проекты", x: 30, y: 45, rotate: 8, size: "clamp(1.1rem,1.8vw,1.9rem)", color: "text-primary", style: "bold" },
+  { text: "Команда", x: 8, y: 60, rotate: -7, size: "clamp(1.3rem,2.1vw,2.2rem)", color: "text-mural-olive", style: "serif" },
+  { text: "Рост", x: 44, y: 74, rotate: 12, size: "clamp(1rem,1.6vw,1.7rem)", color: "text-mural-ink", style: "light" },
+  { text: "Ереван", x: 14, y: 87, rotate: -11, size: "clamp(1.4rem,2.3vw,2.4rem)", color: "text-mural-clay", style: "serif" },
 ];
 
 const wordStyles = {
   serif: "font-serif italic",
   bold: "font-extrabold uppercase tracking-wide",
-  light: "font-medium uppercase tracking-[0.2em]",
+  light: "font-medium uppercase tracking-[0.18em]",
 } as const;
 
-function FaqMural() {
+// Width of one side margin: (screen - content column) / 2.
+const sideColumn = "hidden xl:block absolute top-0 h-full w-[calc((100vw-48rem)/2)]";
+
+function WordColumn({ words, side }: { words: Word[]; side: "left" | "right" }) {
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-mural-paper select-none"
-    >
-      <div className="absolute -right-40 -top-40 size-72 rounded-full bg-mural-mist opacity-60 sm:size-[26rem]" />
-      <div className="absolute -bottom-40 -left-32 size-72 rounded-full bg-mural-olive opacity-20 sm:size-[26rem]" />
-      <div className="absolute -right-24 bottom-24 size-56 rounded-full border border-mural-clay/25 sm:size-80" />
-      <svg
-        className="absolute inset-0 size-full text-mural-olive opacity-[0.14]"
-        viewBox="0 0 1000 800"
-        preserveAspectRatio="none"
-      >
-        <path d="M-60 120 Q 300 380 560 400 T 1080 700" fill="none" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M1060 90 Q 760 300 520 420 T -40 760" fill="none" stroke="currentColor" strokeWidth="0.9" />
-      </svg>
+    <div className={`${sideColumn} ${side === "left" ? "left-0" : "right-0"}`}>
       {words.map((w) => (
         <span
           key={w.text}
-          className={`absolute whitespace-nowrap leading-none opacity-[0.3] sm:opacity-[0.36] ${w.color} ${wordStyles[w.style]} ${w.desktopOnly ? "hidden sm:block" : ""}`}
+          className={`absolute whitespace-nowrap leading-none opacity-[0.42] ${w.color} ${wordStyles[w.style]}`}
           style={{
             left: `${w.x}%`,
             top: `${w.y}%`,
@@ -91,6 +79,28 @@ function FaqMural() {
           {w.text}
         </span>
       ))}
+    </div>
+  );
+}
+
+function FaqMural() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-mural-paper select-none"
+    >
+      <div className="absolute -right-40 -top-40 size-72 rounded-full bg-mural-mist opacity-50 sm:size-[26rem]" />
+      <div className="absolute -bottom-40 -left-32 size-72 rounded-full bg-mural-olive opacity-15 sm:size-[26rem]" />
+      <svg
+        className="absolute inset-0 size-full text-mural-olive opacity-[0.05]"
+        viewBox="0 0 1000 800"
+        preserveAspectRatio="none"
+      >
+        <path d="M-60 120 Q 300 380 560 400 T 1080 700" fill="none" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M1060 90 Q 760 300 520 420 T -40 760" fill="none" stroke="currentColor" strokeWidth="0.9" />
+      </svg>
+      <WordColumn words={leftWords} side="left" />
+      <WordColumn words={rightWords} side="right" />
     </div>
   );
 }
