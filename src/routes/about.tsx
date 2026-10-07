@@ -1,20 +1,18 @@
-import { useState } from "react";
-import { flushSync } from "react-dom";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { faqItems } from "@/lib/faq-items";
+import { AccordionList } from "@/components/accordion-list";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "В чем идея и FAQ — IYSHA" },
+      { title: "В чем идея — IYSHA" },
       {
         name: "description",
         content:
           "Несколько мыслей о том, как может работать живое сообщество людей, которые хотят расширять круг знакомств, создавать проекты и лучше понимать друг друга.",
       },
-      { property: "og:title", content: "В чем идея и FAQ — IYSHA" },
+      { property: "og:title", content: "В чем идея — IYSHA" },
       {
         property: "og:description",
         content:
@@ -259,89 +257,6 @@ function EditorialMural() {
   );
 }
 
-function AccordionList({
-  idPrefix,
-  items,
-}: {
-  idPrefix: string;
-  items: { title: string; content: React.ReactNode }[];
-}) {
-  const [openSection, setOpenSection] = useState<string>("");
-
-  const handleValueChange = (value: string) => {
-    const section = value ? document.getElementById(value) : null;
-    const topBefore = section?.getBoundingClientRect().top ?? 0;
-
-    // Apply the change synchronously so the new layout is final right away
-    // (content opens/closes instantly, without a height animation).
-    flushSync(() => setOpenSection(value));
-
-    // A short section near the end of the page can't scroll up to the top of
-    // the screen, because there is nothing below it. Add just enough empty
-    // space at the bottom (only while a section is open) so that it can.
-    const spacer = document.getElementById("scroll-spacer");
-    if (spacer) {
-      const spacerHeight = spacer.offsetHeight;
-      let needed = 0;
-      if (section) {
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        const pageHeight = document.documentElement.scrollHeight - spacerHeight;
-        needed = Math.max(0, Math.ceil(sectionTop + window.innerHeight - pageHeight));
-      }
-      spacer.style.height = `${needed}px`;
-    }
-    if (!section) return;
-
-    // Keep the tapped title visually in place if a section above collapsed...
-    const topAfter = section.getBoundingClientRect().top;
-    if (topAfter !== topBefore) {
-      window.scrollTo({ top: window.scrollY + (topAfter - topBefore), behavior: "instant" });
-    }
-
-    // ...then one smooth movement bringing the title to the top of the screen.
-    window.scrollTo({
-      top: window.scrollY + section.getBoundingClientRect().top,
-      behavior: "smooth",
-    });
-  };
-
-  return (
-    <div className="[overflow-anchor:none]">
-      {items.map((item, i) => {
-        const id = `${idPrefix}-${i}`;
-        const isOpen = openSection === id;
-        return (
-          <div key={id} id={id} className="border-b border-border">
-            <h3 className="flex">
-              <button
-                type="button"
-                aria-expanded={isOpen}
-                aria-controls={`${id}-content`}
-                onClick={() => handleValueChange(isOpen ? "" : id)}
-                className="flex flex-1 cursor-pointer items-center justify-between gap-4 py-5 text-left text-base font-bold leading-snug sm:py-6 sm:text-lg"
-              >
-                {item.title}
-                <ChevronDown
-                  aria-hidden="true"
-                  className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-            </h3>
-            <div
-              id={`${id}-content`}
-              role="region"
-              hidden={!isOpen}
-              className="animate-in fade-in-0 pb-6 text-base leading-relaxed text-foreground duration-300 sm:text-lg"
-            >
-              <div className="space-y-4">{item.content}</div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 function AboutPage() {
   return (
     <main className="relative isolate min-h-[100svh] bg-mural-paper text-foreground">
@@ -355,23 +270,18 @@ function AboutPage() {
           <AccordionList idPrefix="idea" items={ideaItems} />
         </div>
 
-        <h2
-          id="faq"
-          className="mt-16 scroll-mt-8 text-center text-3xl font-extrabold leading-tight sm:mt-24 sm:text-4xl"
-        >
-          Частые вопросы
-        </h2>
-
-        <div className="mt-10 sm:mt-14">
-          <AccordionList idPrefix="faq" items={faqItems} />
-        </div>
-
         <div className="mt-12 flex flex-col items-center gap-5 sm:mt-16">
           <Button asChild className="h-12 rounded-full px-8 text-base font-bold">
             <a href="https://t.me/iysha_yerevan" target="_blank" rel="noopener noreferrer">
               Подать заявку <ArrowRight aria-hidden="true" />
             </a>
           </Button>
+          <Link
+            to="/faq"
+            className="inline-flex items-center justify-center rounded-full border border-primary/40 px-8 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-accent"
+          >
+            FAQ
+          </Link>
           <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
             ← На главную
           </Link>
