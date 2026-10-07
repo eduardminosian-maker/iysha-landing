@@ -3,17 +3,18 @@ import { flushSync } from "react-dom";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { faqItems } from "@/lib/faq-items";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "В чем идея — IYSHA" },
+      { title: "В чем идея и FAQ — IYSHA" },
       {
         name: "description",
         content:
           "Несколько мыслей о том, как может работать живое сообщество людей, которые хотят расширять круг знакомств, создавать проекты и лучше понимать друг друга.",
       },
-      { property: "og:title", content: "В чем идея — IYSHA" },
+      { property: "og:title", content: "В чем идея и FAQ — IYSHA" },
       {
         property: "og:description",
         content:
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
-const sections: { title: string; content: React.ReactNode }[] = [
+const ideaItems: { title: string; content: React.ReactNode }[] = [
   {
     title: "Почему вход только через “эстафету” живых знакомств?",
     content: (
@@ -258,7 +259,13 @@ function EditorialMural() {
   );
 }
 
-function AboutPage() {
+function AccordionList({
+  idPrefix,
+  items,
+}: {
+  idPrefix: string;
+  items: { title: string; content: React.ReactNode }[];
+}) {
   const [openSection, setOpenSection] = useState<string>("");
 
   const handleValueChange = (value: string) => {
@@ -284,48 +291,64 @@ function AboutPage() {
   };
 
   return (
+    <div className="[overflow-anchor:none]">
+      {items.map((item, i) => {
+        const id = `${idPrefix}-${i}`;
+        const isOpen = openSection === id;
+        return (
+          <div key={id} id={id} className="border-b border-border">
+            <h3 className="flex">
+              <button
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={`${id}-content`}
+                onClick={() => handleValueChange(isOpen ? "" : id)}
+                className="flex flex-1 cursor-pointer items-center justify-between gap-4 py-5 text-left text-base font-bold leading-snug sm:py-6 sm:text-lg"
+              >
+                {item.title}
+                <ChevronDown
+                  aria-hidden="true"
+                  className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+            </h3>
+            <div
+              id={`${id}-content`}
+              role="region"
+              hidden={!isOpen}
+              className="animate-in fade-in-0 pb-6 text-base leading-relaxed text-foreground duration-300 sm:text-lg"
+            >
+              <div className="space-y-4">{item.content}</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function AboutPage() {
+  return (
     <main className="relative isolate min-h-[100svh] bg-mural-paper text-foreground">
       <EditorialMural />
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col px-5 py-12 sm:px-10 sm:py-16 lg:px-16">
         <h1 className="text-center text-3xl font-extrabold leading-tight sm:text-4xl">
           В чем идея?
         </h1>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {"\n"}
-        </p>
 
-        <div className="mt-10 [overflow-anchor:none] sm:mt-14">
-          {sections.map((section, i) => {
-            const id = `section-${i}`;
-            const isOpen = openSection === id;
-            return (
-              <div key={i} id={id} className="border-b border-border">
-                <h3 className="flex">
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={`${id}-content`}
-                    onClick={() => handleValueChange(isOpen ? "" : id)}
-                    className="flex flex-1 cursor-pointer items-center justify-between gap-4 py-5 text-left text-base font-bold leading-snug sm:py-6 sm:text-lg"
-                  >
-                    {section.title}
-                    <ChevronDown
-                      className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                </h3>
-                {isOpen && (
-                  <div
-                    id={`${id}-content`}
-                    role="region"
-                    className="animate-in fade-in-0 pb-6 text-base leading-relaxed text-foreground duration-300 sm:text-lg"
-                  >
-                    <div className="space-y-4">{section.content}</div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        <div className="mt-10 sm:mt-14">
+          <AccordionList idPrefix="idea" items={ideaItems} />
+        </div>
+
+        <h2
+          id="faq"
+          className="mt-16 scroll-mt-8 text-center text-3xl font-extrabold leading-tight sm:mt-24 sm:text-4xl"
+        >
+          Частые вопросы
+        </h2>
+
+        <div className="mt-10 sm:mt-14">
+          <AccordionList idPrefix="faq" items={faqItems} />
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-5 sm:mt-16">
