@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AccordionList } from "@/components/accordion-list";
+import { WordMural } from "@/components/word-mural";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -178,89 +179,10 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
   },
 ];
 
-function EditorialMural() {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-mural-paper select-none"
-    >
-      <div className="relative h-full min-h-[100svh] overflow-hidden opacity-30 sm:opacity-40">
-        <div className="absolute -left-36 -top-36 size-64 rounded-full bg-mural-olive opacity-55 sm:-left-36 sm:-top-36 sm:size-96" />
-        <div className="absolute -right-36 top-24 size-64 rounded-full bg-mural-mist opacity-50 sm:-right-36 sm:top-16 sm:size-96" />
-        <div className="absolute -bottom-36 -left-28 size-80 rounded-full border border-mural-clay/25 sm:-bottom-64 sm:-left-44 sm:size-[34rem]" />
-        <div className="absolute -bottom-16 -right-36 size-64 rounded-full border border-mural-clay/25 sm:-right-32 sm:size-96" />
-
-        <svg
-          className="absolute inset-0 size-full text-mural-olive opacity-[0.18]"
-          viewBox="0 0 1000 800"
-          preserveAspectRatio="none"
-        >
-          <path d="M-80 630 Q 240 410 570 660 T 1080 590" fill="none" stroke="currentColor" strokeWidth="1.2" />
-          <path d="M760 -80 Q 650 120 770 310" fill="none" stroke="currentColor" strokeWidth="0.8" />
-          <path d="M85 405 H220" fill="none" stroke="currentColor" strokeWidth="1" />
-          <path d="M735 455 H850" fill="none" stroke="currentColor" strokeWidth="1" />
-        </svg>
-
-        <div className="absolute left-5 top-8 text-mural-ink/60 sm:left-12 sm:top-14">
-          <span className="block text-sm font-medium uppercase sm:text-base">Люди</span>
-          <span className="mt-1 block text-[10px] uppercase opacity-65">Team</span>
-          <span className="mt-3 block font-serif text-2xl italic text-mural-clay sm:text-3xl">Идеи</span>
-          <span className="mt-1 block text-xs uppercase">Встречи</span>
-        </div>
-
-        <span className="absolute left-1 top-64 hidden text-[10px] font-medium uppercase text-mural-ink/35 [writing-mode:vertical-rl] sm:left-4 sm:top-72 sm:block sm:text-xs">
-          Сообщество
-        </span>
-
-        <div className="absolute right-5 top-10 text-right text-mural-ink/50 sm:right-16 sm:top-16">
-          <span className="block text-xs font-medium uppercase sm:text-sm">Рост</span>
-          <span className="mt-2 block text-[10px] uppercase">Стартапы</span>
-        </div>
-
-        <span className="absolute right-4 top-[29%] hidden font-serif text-2xl italic text-mural-clay/55 sm:right-14 sm:block sm:text-3xl">
-          Бизнес
-        </span>
-        <span className="absolute left-5 top-[42%] hidden font-serif text-2xl italic text-mural-olive/45 sm:left-12 sm:block sm:text-3xl">
-          Together
-        </span>
-        <span className="absolute right-3 top-[46%] hidden -rotate-12 text-[10px] uppercase text-mural-ink/30 sm:right-14 sm:block sm:text-xs">
-          Вдохновение
-        </span>
-
-        <div className="absolute bottom-24 left-5 text-mural-ink/45 sm:bottom-28 sm:left-14">
-          <span className="block font-serif text-2xl italic text-mural-clay sm:text-3xl">Успех</span>
-          <span className="mt-2 block text-[10px] uppercase sm:text-xs">Возможности</span>
-        </div>
-
-        <div className="absolute bottom-16 right-5 text-right text-mural-ink/50 sm:bottom-20 sm:right-14">
-          <span className="block text-xs font-medium uppercase sm:text-sm">Смыслы</span>
-          <span className="mt-2 ml-auto block h-px w-12 bg-mural-ink/45" />
-          <span className="mt-6 block font-serif text-2xl italic text-mural-clay sm:text-3xl">Вместе</span>
-          <span className="mt-1 block text-[10px] uppercase sm:text-xs">Развитие</span>
-        </div>
-
-        <span className="absolute right-1 top-[57%] hidden text-[10px] font-medium uppercase text-mural-ink/35 [writing-mode:vertical-rl] sm:right-8 sm:block sm:text-xs">
-          Ценности
-        </span>
-
-        <span className="absolute left-[7%] top-[31%] hidden text-sm font-medium uppercase text-mural-ink/35 lg:block">
-          Партнёрство
-        </span>
-        <span className="absolute left-[2%] top-[55%] hidden text-sm uppercase text-mural-ink/30 lg:block">
-          Предпринимательство
-        </span>
-        <span className="absolute right-[14%] top-[39%] hidden text-sm uppercase text-mural-ink/30 lg:block">
-          Проекты · Команда
-        </span>
-      </div>
-    </div>
-  );
-}
-
 function AboutPage() {
   return (
     <main className="relative isolate min-h-[100svh] bg-mural-paper text-foreground">
-      <EditorialMural />
+      <WordMural variant="b" contentWidth="56rem" breakpoint="wide" mobileOpacity="opacity-[0.14]" />
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col px-5 py-12 sm:px-10 sm:py-16 lg:px-16">
         <h1 className="text-center text-3xl font-extrabold leading-tight sm:text-4xl">
           В чем идея?
