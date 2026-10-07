@@ -1,3 +1,16 @@
+function TelegramLink() {
+  return (
+    <a
+      href="https://t.me/zarazakupidon"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-semibold text-primary underline underline-offset-4"
+    >
+      @zarazakupidon
+    </a>
+  );
+}
+
 export const faqItems: { title: string; content: React.ReactNode }[] = [
   {
     title: "Как попасть в сообщество?",
@@ -13,14 +26,7 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     content: (
       <p>
         Да, лучше дополнительно написать{" "}
-        <a
-          href="https://t.me/zarazakupidon"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-primary underline underline-offset-4"
-        >
-          @zarazakupidon
-        </a>{" "}
+        <TelegramLink />{" "}
         о том, что вы хотите попасть в группу. Это ускорит процесс.
       </p>
     ),
@@ -29,7 +35,7 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     title: "Как быстро ответят?",
     content: (
       <p>
-        Если вы напишете @zarazakupidon, то он обычно отвечает в течение суток.
+        Если вы напишете <TelegramLink />, то он обычно отвечает в течение суток.
       </p>
     ),
   },

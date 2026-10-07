@@ -5,9 +5,12 @@ import { ChevronDown } from "lucide-react";
 export function AccordionList({
   idPrefix,
   items,
+  dense = false,
 }: {
   idPrefix: string;
   items: { title: string; content: React.ReactNode }[];
+  /** Compact rows that scale with the screen height, so a whole list fits on one screen. */
+  dense?: boolean;
 }) {
   const [openSection, setOpenSection] = useState<string>("");
 
@@ -61,7 +64,11 @@ export function AccordionList({
                 aria-expanded={isOpen}
                 aria-controls={`${id}-content`}
                 onClick={() => handleValueChange(isOpen ? "" : id)}
-                className="flex flex-1 cursor-pointer items-center justify-between gap-4 py-5 text-left text-base font-bold leading-snug sm:py-6 sm:text-lg"
+                className={`flex flex-1 cursor-pointer items-center justify-between gap-4 text-left font-bold leading-snug ${
+                  dense
+                    ? "py-[clamp(0.55rem,1.7vh,1.25rem)] text-[clamp(0.9rem,2vh,1.125rem)]"
+                    : "py-5 text-base sm:py-6 sm:text-lg"
+                }`}
               >
                 {item.title}
                 <ChevronDown
