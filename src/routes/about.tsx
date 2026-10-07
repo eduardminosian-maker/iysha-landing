@@ -275,6 +275,21 @@ function AccordionList({
     // Apply the change synchronously so the new layout is final right away
     // (content opens/closes instantly, without a height animation).
     flushSync(() => setOpenSection(value));
+
+    // A short section near the end of the page can't scroll up to the top of
+    // the screen, because there is nothing below it. Add just enough empty
+    // space at the bottom (only while a section is open) so that it can.
+    const spacer = document.getElementById("scroll-spacer");
+    if (spacer) {
+      const spacerHeight = spacer.offsetHeight;
+      let needed = 0;
+      if (section) {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight - spacerHeight;
+        needed = Math.max(0, Math.ceil(sectionTop + window.innerHeight - pageHeight));
+      }
+      spacer.style.height = `${needed}px`;
+    }
     if (!section) return;
 
     // Keep the tapped title visually in place if a section above collapsed...
@@ -362,6 +377,7 @@ function AboutPage() {
           </Link>
         </div>
       </div>
+      <div id="scroll-spacer" aria-hidden="true" />
     </main>
   );
 }
