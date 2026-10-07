@@ -86,12 +86,18 @@ function Index() {
               );
             })}
           </ol>
-          <div className="mt-3 flex shrink-0 justify-center md:mt-6">
+          <div className="mt-3 flex shrink-0 items-center justify-center gap-5 md:mt-6">
             <Link
               to="/about"
               className="inline-flex items-center justify-center rounded-full border border-primary/40 px-6 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent sm:px-8 sm:py-2.5 sm:text-base"
             >
               В чем идея
+            </Link>
+            <Link
+              to="/faq"
+              className="text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground sm:text-base"
+            >
+              Частые вопросы
             </Link>
           </div>
         </div>

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { flushSync } from "react-dom";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -327,11 +328,13 @@ function AboutPage() {
           })}
         </div>
 
-        <div className="mt-12 flex justify-center sm:mt-16">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-full border border-primary/40 px-6 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent sm:px-8 sm:py-2.5 sm:text-base"
-          >
+        <div className="mt-12 flex flex-col items-center gap-5 sm:mt-16">
+          <Button asChild className="h-12 rounded-full px-8 text-base font-bold">
+            <a href="https://t.me/iysha_yerevan" target="_blank" rel="noopener noreferrer">
+              Подать заявку <ArrowRight aria-hidden="true" />
+            </a>
+          </Button>
+          <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
             ← На главную
           </Link>
         </div>
