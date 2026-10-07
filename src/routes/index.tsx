@@ -13,6 +13,7 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Клуб живых знакомств для совместного предпринимательства и не только." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "yandex-verification", content: "a3591098d7eb6200" },
     ],
   }),
   component: Index,
