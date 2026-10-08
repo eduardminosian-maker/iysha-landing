@@ -13,7 +13,7 @@ function TelegramLink() {
 
 export const faqItems: { title: string; content: React.ReactNode }[] = [
   {
-    title: "Как попасть в сообщество?",
+    title: "Как попасть в сообщество",
     content: (
       <p>
         Подать заявку в Telegram. Вам предложат встречу. Встретиться. Если мы и
@@ -22,7 +22,7 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Нужно ли что-то написать в Telegram?",
+    title: "Нужно ли что-то написать в Telegram",
     content: (
       <p>
         Да, лучше дополнительно написать{" "}
@@ -32,7 +32,7 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Как быстро ответят?",
+    title: "Как быстро ответят",
     content: (
       <p>
         Если вы напишете <TelegramLink />, то он обычно отвечает в течение суток.
@@ -40,7 +40,7 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Почему сначала встреча?",
+    title: "Почему сначала встреча",
     content: (
       <p>
         Тех, кто готов встретиться, с большей вероятностью объединит желание
@@ -49,19 +49,19 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Кто может прийти?",
+    title: "Кто может прийти",
     content: <p>Любой человек, осознающий, для чего ему расширять свое окружение.</p>,
   },
   {
-    title: "Нужно ли быть предпринимателем?",
+    title: "Нужно ли быть предпринимателем",
     content: <p>Нет.</p>,
   },
   {
-    title: "Участие бесплатное на всех этапах для любых мероприятий?",
+    title: "Участие бесплатное на всех этапах для любых мероприятий",
     content: <p>Да.</p>,
   },
   {
-    title: "Как проходят встречи?",
+    title: "Как проходят встречи",
     content: (
       <p>
         Встречаемся по 6 человек или иногда меньше, в 13:00 по воскресеньям в
@@ -72,7 +72,7 @@ export const faqItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "На каком языке проходят встречи?",
+    title: "На каком языке проходят встречи",
     content: (
       <p>
         Сейчас на русском, так как основатель сообщества – русскоязычный

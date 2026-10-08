@@ -44,7 +44,7 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Почему вход только через “эстафету” живых знакомств?",
+    title: "Почему вход только через “эстафету” живых знакомств",
     content: (
       <>
         <p>
@@ -73,7 +73,7 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Почему бесплатно?",
+    title: "Почему бесплатно",
     content: (
       <>
         <p>
@@ -139,7 +139,7 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Нужно ли быть предпринимателем?",
+    title: "Нужно ли быть предпринимателем",
     content: (
       <>
         <p>
@@ -201,7 +201,7 @@ function AboutPage() {
       <WordMural variant="b" contentWidth="56rem" breakpoint="wide" mobileOpacity="opacity-[0.14]" />
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col px-5 py-12 sm:px-10 sm:py-16 lg:px-16">
         <h1 className="text-center text-3xl font-extrabold leading-tight sm:text-4xl">
-          В чем идея?
+          В чем идея
         </h1>
 
         <div className="mt-10 sm:mt-14">
