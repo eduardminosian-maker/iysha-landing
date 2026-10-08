@@ -91,7 +91,7 @@ function Index() {
               to="/about"
               className="inline-flex items-center justify-center rounded-full border border-primary/40 px-6 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent sm:px-8 sm:py-2.5 sm:text-base"
             >
-              В чем идея и FAQ
+              В чем идея
             </Link>
           </div>
         </div>
