@@ -10,7 +10,7 @@ export function AccordionList({
   idPrefix: string;
   items: { title: string; content: React.ReactNode }[];
   /** Compact rows that scale with the screen height, so a whole list fits on one screen. */
-  dense?: boolean;
+  dense?: boolean | "desktop";
 }) {
   const [openSection, setOpenSection] = useState<string>("");
 
@@ -70,9 +70,11 @@ export function AccordionList({
                 aria-controls={`${id}-content`}
                 onClick={() => handleValueChange(isOpen ? "" : id)}
                 className={`flex flex-1 cursor-pointer items-center justify-between gap-4 text-left font-bold leading-snug ${
-                  dense
+                  dense === true
                     ? "py-[clamp(0.55rem,1.7vh,1.25rem)] text-[clamp(0.9rem,2vh,1.125rem)]"
-                    : "py-5 text-base sm:py-6 sm:text-lg"
+                    : dense === "desktop"
+                      ? "py-5 text-base sm:py-6 sm:text-lg md:py-[clamp(0.55rem,1.7vh,1.25rem)] md:text-[clamp(0.9rem,2vh,1.125rem)]"
+                      : "py-5 text-base sm:py-6 sm:text-lg"
                 }`}
               >
                 {item.title}

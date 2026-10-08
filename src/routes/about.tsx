@@ -194,24 +194,24 @@ function AboutPage() {
   return (
     <main className="relative isolate min-h-[100svh] bg-mural-paper text-foreground">
       <WordMural variant="b" contentWidth="56rem" breakpoint="wide" mobileOpacity="opacity-[0.14]" />
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col px-5 py-12 sm:px-10 sm:py-16 lg:px-16">
-        <h1 className="text-center text-3xl font-extrabold leading-tight sm:text-4xl">
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col px-5 py-12 sm:px-10 sm:py-16 md:py-[clamp(1rem,4vh,4rem)] lg:px-16">
+        <h1 className="text-center text-3xl font-extrabold leading-tight sm:text-4xl md:text-[clamp(1.5rem,4.5vh,2.5rem)]">
           В чем идея
         </h1>
 
-        <div className="mt-10 sm:mt-14">
-          <AccordionList idPrefix="idea" items={ideaItems} />
+        <div className="mt-10 sm:mt-14 md:mt-[clamp(0.75rem,3vh,2.5rem)]">
+          <AccordionList idPrefix="idea" items={ideaItems} dense="desktop" />
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-5 sm:mt-16">
-          <Button asChild className="h-12 rounded-full px-8 text-base font-bold">
+        <div className="mt-12 flex flex-col items-center gap-5 sm:mt-16 md:mt-[clamp(1rem,3.5vh,3rem)] md:gap-[clamp(0.5rem,1.6vh,1.25rem)]">
+          <Button asChild className="h-12 rounded-full px-8 text-base font-bold md:h-[clamp(2.5rem,5.5vh,3rem)]">
             <a href="https://t.me/iysha_yerevan" target="_blank" rel="noopener noreferrer">
               Подать заявку <ArrowRight aria-hidden="true" />
             </a>
           </Button>
           <Link
             to="/faq"
-            className="inline-flex items-center justify-center rounded-full border border-primary/40 px-8 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-full border border-primary/40 px-8 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-accent md:py-[clamp(0.3rem,1vh,0.625rem)]"
           >
             FAQ
           </Link>
