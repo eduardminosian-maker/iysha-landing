@@ -36,7 +36,12 @@ export function AccordionList({
       }
       spacer.style.height = `${needed}px`;
     }
-    if (!section) return;
+    if (!section) {
+      // Everything is closed: bring the page back to the top, so the page
+      // title and the full list are on screen together.
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
 
     // Keep the tapped title visually in place if a section above collapsed...
     const topAfter = section.getBoundingClientRect().top;
