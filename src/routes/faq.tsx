@@ -41,7 +41,7 @@ function FaqPage() {
   return (
     <PageLayout
       title="Частые вопросы"
-      list={<AccordionList idPrefix="faq" items={faqItems} dense="desktop" />}
+      list={<AccordionList idPrefix="faq" items={faqItems} dense="desktop" scrollToTitle={false} />}
       actions={
         <>
           <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">

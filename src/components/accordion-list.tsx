@@ -6,15 +6,22 @@ export function AccordionList({
   idPrefix,
   items,
   dense = false,
+  scrollToTitle = true,
 }: {
   idPrefix: string;
   items: { title: string; content: React.ReactNode }[];
   /** Compact rows that scale with the screen height, so a whole list fits on one screen. */
   dense?: boolean | "desktop";
+  /** When false, opening or closing a question never moves the page: the answer just opens downwards. */
+  scrollToTitle?: boolean;
 }) {
   const [openSection, setOpenSection] = useState<string>("");
 
   const handleValueChange = (value: string) => {
+    if (!scrollToTitle) {
+      flushSync(() => setOpenSection(value));
+      return;
+    }
     const section = value ? document.getElementById(value) : null;
     const topBefore = section?.getBoundingClientRect().top ?? 0;
 
