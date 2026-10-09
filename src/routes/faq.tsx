@@ -10,6 +10,7 @@ const description =
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://iysha.am/faq" }],
     meta: [
       { title: "Частые вопросы — IYSHA" },
       { name: "description", content: description },
@@ -17,6 +18,20 @@ export const Route = createFileRoute("/faq")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqItems.map((item) => ({
+            "@type": "Question",
+            name: item.title,
+            acceptedAnswer: { "@type": "Answer", text: item.text },
+          })),
+        }),
+      },
     ],
   }),
   component: FaqPage,

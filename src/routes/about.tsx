@@ -6,6 +6,7 @@ import { WordMural } from "@/components/word-mural";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://iysha.am/about" }],
     meta: [
       { title: "В чем идея — IYSHA" },
       {

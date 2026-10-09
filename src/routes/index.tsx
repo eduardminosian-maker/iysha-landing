@@ -5,7 +5,10 @@ const heroUrl = "/yerevan-sunset.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    links: [{ rel: "preload", href: heroUrl, as: "image" }],
+    links: [
+      { rel: "preload", href: heroUrl, as: "image" },
+      { rel: "canonical", href: "https://iysha.am/" },
+    ],
     meta: [
       { title: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
       { name: "description", content: "Клуб живых знакомств для совместного предпринимательства и не только. Вход после встречи с любым участником." },

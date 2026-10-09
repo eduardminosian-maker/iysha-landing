@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Клуб живых знакомств для совместного предпринимательства и не только.",
       },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "IYSHA" },
       { property: "og:title", content: "Знакомства. Нетворкинг. Ереван." },
       {
         property: "og:description",
@@ -92,7 +92,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Клуб живых знакомств для совместного предпринимательства и не только.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "IYSHA" },
+      { property: "og:locale", content: "ru_RU" },
+      { property: "og:image", content: "https://iysha.am/og-image.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://iysha.am/og-image.jpg" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://iysha.am/#organization",
+              name: "IYSHA",
+              url: "https://iysha.am/",
+              logo: "https://iysha.am/favicon.png",
+              description:
+                "Клуб живых знакомств и нетворкинга в Ереване: небольшие регулярные встречи, бесплатное участие, вход после встречи с участником.",
+              areaServed: { "@type": "City", name: "Ереван" },
+              sameAs: ["https://t.me/iysha_yerevan"],
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://iysha.am/#website",
+              url: "https://iysha.am/",
+              name: "IYSHA",
+              inLanguage: "ru",
+              publisher: { "@id": "https://iysha.am/#organization" },
+            },
+          ],
+        }),
+      },
     ],
     links: [
       {
@@ -124,7 +159,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <HeadContent />
       </head>
