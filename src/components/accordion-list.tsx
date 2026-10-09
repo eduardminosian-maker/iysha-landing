@@ -23,7 +23,7 @@ export function AccordionList({
       return;
     }
     const section = value ? document.getElementById(value) : null;
-    const topBefore = section?.getBoundingClientRect().top ?? 0;
+    const switching = openSection !== "" && value !== "";
 
     // Apply the change synchronously so the new layout is final right away
     // (content opens/closes instantly, without a height animation).
@@ -50,13 +50,19 @@ export function AccordionList({
       return;
     }
 
-    // Keep the tapped title visually in place if a section above collapsed...
-    const topAfter = section.getBoundingClientRect().top;
-    if (topAfter !== topBefore) {
-      window.scrollTo({ top: window.scrollY + (topAfter - topBefore), behavior: "instant" });
+    // Switching from one open section straight to another: jump the tapped title
+    // to the top at once. Animating here would first show the page heading (the
+    // layout shrinks while the old section closes) and then scroll it away again.
+    if (switching) {
+      window.scrollTo({
+        top: window.scrollY + section.getBoundingClientRect().top,
+        behavior: "instant",
+      });
+      return;
     }
 
-    // ...then one smooth movement bringing the title to the top of the screen.
+    // Opening from the all-closed state: one smooth movement bringing the title
+    // to the top of the screen.
     window.scrollTo({
       top: window.scrollY + section.getBoundingClientRect().top,
       behavior: "smooth",
