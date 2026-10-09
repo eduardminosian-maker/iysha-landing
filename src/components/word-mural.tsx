@@ -1,132 +1,98 @@
 type Word = {
   text: string;
-  x: number; // % from the left edge of its area
-  y: number; // % from the top edge
+  x: number; // % of the viewport width
+  y: number; // % of the viewport height
+  kind: "caps" | "script" | "v";
+  color: string;
+  size: number; // rem
   rotate: number;
-  size: string; // CSS font-size
-  color: string; // Tailwind text color class
-  style: "serif" | "bold" | "light";
 };
 
-// Wide screens: words live only in the empty side margins, so they never sit
-// under the text. Scattered along the diagonals, in the brand colors.
-const sideA: Word[] = [
-  { text: "Комьюнити", x: 8, y: 6, rotate: -10, size: "clamp(1.4rem,2.3vw,2.4rem)", color: "text-mural-clay", style: "serif" },
-  { text: "Дружба", x: 40, y: 19, rotate: 9, size: "clamp(1.3rem,2.1vw,2.2rem)", color: "text-primary", style: "serif" },
-  { text: "Идеи", x: 6, y: 32, rotate: -5, size: "clamp(1.1rem,1.8vw,1.9rem)", color: "text-mural-olive", style: "bold" },
-  { text: "Доверие", x: 34, y: 46, rotate: 11, size: "clamp(1.2rem,2vw,2.1rem)", color: "text-telegram", style: "serif" },
-  { text: "Встречи", x: 8, y: 59, rotate: -12, size: "clamp(0.9rem,1.3vw,1.4rem)", color: "text-mural-ink", style: "light" },
-  { text: "Вдохновение", x: 22, y: 72, rotate: 8, size: "clamp(1rem,1.6vw,1.7rem)", color: "text-skin", style: "bold" },
-  { text: "Смыслы", x: 6, y: 88, rotate: -8, size: "clamp(1.3rem,2.1vw,2.2rem)", color: "text-telegram", style: "serif" },
+// Words across the whole screen, very light, so they can pass right behind the text.
+const desktopWords: Word[] = [
+  { text: "ЛЮДИ", x: 4, y: 10, kind: "caps", color: "#1a1612", size: 1.7, rotate: 0 },
+  { text: "TEAM", x: 8, y: 22, kind: "caps", color: "#6f655a", size: 1, rotate: 0 },
+  { text: "Мечты", x: 3, y: 31, kind: "script", color: "#c4572e", size: 2.6, rotate: -6 },
+  { text: "ВСТРЕЧИ", x: 5, y: 44, kind: "caps", color: "#6f655a", size: 1.05, rotate: 0 },
+  { text: "СООБЩЕСТВО", x: 20, y: 8, kind: "v", color: "#1a1612", size: 1.15, rotate: 0 },
+  { text: "РОСТ", x: 14, y: 55, kind: "caps", color: "#1a1612", size: 1.5, rotate: 0 },
+  { text: "Together", x: 4, y: 66, kind: "script", color: "#c4572e", size: 2.4, rotate: -8 },
+  { text: "КОМАНДА", x: 22, y: 80, kind: "caps", color: "#3b402d", size: 1.15, rotate: 0 },
+  { text: "ВОЗМОЖНОСТИ", x: 6, y: 90, kind: "caps", color: "#6f655a", size: 0.95, rotate: 0 },
+  { text: "НЕТВОРКИНГ", x: 36, y: 3, kind: "caps", color: "#6f655a", size: 0.95, rotate: 0 },
+  { text: "ИДЕИ", x: 38, y: 92, kind: "caps", color: "#1a1612", size: 1.3, rotate: 0 },
+  { text: "ПАРТНЁРСТВО", x: 54, y: 7, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
+  { text: "Бизнес", x: 80, y: 20, kind: "script", color: "#c4572e", size: 2.8, rotate: -5 },
+  { text: "КОММЬЮНИТИ", x: 72, y: 6, kind: "v", color: "#1a1612", size: 1.15, rotate: 0 },
+  { text: "ЛЮБОВЬ", x: 86, y: 8, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
+  { text: "КАРЬЕРА", x: 78, y: 36, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0 },
+  { text: "YEREVAN", x: 82, y: 47, kind: "caps", color: "#c4572e", size: 1.5, rotate: 0 },
+  { text: "ДРУЗЬЯ", x: 86, y: 61, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
+  { text: "ПРОЕКТЫ", x: 64, y: 56, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
+  { text: "ВДОХНОВЕНИЕ", x: 72, y: 76, kind: "caps", color: "#3b402d", size: 1.05, rotate: -24 },
+  { text: "ЦЕННОСТИ", x: 96, y: 36, kind: "v", color: "#1a1612", size: 1.0, rotate: 0 },
+  { text: "СМЫСЛЫ", x: 56, y: 90, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0 },
+  { text: "Доверие", x: 86, y: 88, kind: "script", color: "#c4572e", size: 2.2, rotate: -6 },
+  { text: "ДРУЖБА", x: 44, y: 45, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
 ];
 
-const sideB: Word[] = [
-  { text: "Бизнес", x: 14, y: 5, rotate: 8, size: "clamp(1.2rem,1.9vw,2rem)", color: "text-telegram", style: "bold" },
-  { text: "Нетворкинг", x: 30, y: 17, rotate: -6, size: "clamp(0.9rem,1.3vw,1.4rem)", color: "text-mural-olive", style: "light" },
-  { text: "Любовь", x: 10, y: 31, rotate: -13, size: "clamp(1.4rem,2.3vw,2.4rem)", color: "text-skin", style: "serif" },
-  { text: "Проекты", x: 30, y: 45, rotate: 8, size: "clamp(1.1rem,1.8vw,1.9rem)", color: "text-primary", style: "bold" },
-  { text: "Команда", x: 8, y: 60, rotate: -7, size: "clamp(1.3rem,2.1vw,2.2rem)", color: "text-mural-olive", style: "serif" },
-  { text: "Рост", x: 44, y: 74, rotate: 12, size: "clamp(1rem,1.6vw,1.7rem)", color: "text-mural-ink", style: "light" },
-  { text: "Ереван", x: 14, y: 87, rotate: -11, size: "clamp(1.4rem,2.3vw,2.4rem)", color: "text-mural-clay", style: "serif" },
+const phoneWords: Word[] = [
+  { text: "Мечты", x: 3, y: 3, kind: "script", color: "#c4572e", size: 1.9, rotate: -6 },
+  { text: "ЛЮДИ", x: 66, y: 6, kind: "caps", color: "#1a1612", size: 0.8, rotate: 0 },
+  { text: "СООБЩЕСТВО", x: 4, y: 22, kind: "caps", color: "#6f655a", size: 0.7, rotate: 0 },
+  { text: "Бизнес", x: 60, y: 30, kind: "script", color: "#c4572e", size: 1.9, rotate: -5 },
+  { text: "РОСТ", x: 6, y: 42, kind: "caps", color: "#1a1612", size: 0.9, rotate: 0 },
+  { text: "YEREVAN", x: 58, y: 52, kind: "caps", color: "#c4572e", size: 0.85, rotate: 0 },
+  { text: "Together", x: 4, y: 63, kind: "script", color: "#c4572e", size: 1.9, rotate: -8 },
+  { text: "ПРОЕКТЫ", x: 62, y: 72, kind: "caps", color: "#6f655a", size: 0.75, rotate: 0 },
+  { text: "КОМАНДА", x: 5, y: 82, kind: "caps", color: "#3b402d", size: 0.8, rotate: 0 },
+  { text: "Доверие", x: 58, y: 90, kind: "script", color: "#c4572e", size: 1.8, rotate: -6 },
+  { text: "СМЫСЛЫ", x: 6, y: 94, kind: "caps", color: "#1a1612", size: 0.8, rotate: 0 },
 ];
 
-// Phones and narrow windows: there is no free margin, so the words are small,
-// very faint and kept near the edges, scattered along the diagonals.
-const small: Word[] = [
-  { text: "Комьюнити", x: 3, y: 2, rotate: -8, size: "1.35rem", color: "text-mural-clay", style: "serif" },
-  { text: "Бизнес", x: 66, y: 3, rotate: 7, size: "0.95rem", color: "text-telegram", style: "bold" },
-  { text: "Дружба", x: 72, y: 16, rotate: -10, size: "1.25rem", color: "text-primary", style: "serif" },
-  { text: "Идеи", x: 2, y: 24, rotate: 9, size: "0.95rem", color: "text-mural-olive", style: "bold" },
-  { text: "Нетворкинг", x: 62, y: 33, rotate: -6, size: "0.7rem", color: "text-mural-olive", style: "light" },
-  { text: "Любовь", x: 3, y: 44, rotate: -12, size: "1.3rem", color: "text-skin", style: "serif" },
-  { text: "Проекты", x: 66, y: 52, rotate: 8, size: "0.95rem", color: "text-primary", style: "bold" },
-  { text: "Доверие", x: 2, y: 63, rotate: 10, size: "1.2rem", color: "text-telegram", style: "serif" },
-  { text: "Встречи", x: 70, y: 70, rotate: -9, size: "0.7rem", color: "text-mural-ink", style: "light" },
-  { text: "Команда", x: 4, y: 80, rotate: -7, size: "1.25rem", color: "text-mural-olive", style: "serif" },
-  { text: "Рост", x: 74, y: 82, rotate: 12, size: "0.95rem", color: "text-mural-ink", style: "bold" },
-  { text: "Смыслы", x: 3, y: 94, rotate: 6, size: "1.1rem", color: "text-telegram", style: "serif" },
-  { text: "Ереван", x: 62, y: 93, rotate: -9, size: "1.35rem", color: "text-mural-clay", style: "serif" },
-];
-
-const wordStyles = {
-  serif: "font-serif italic",
-  bold: "font-extrabold uppercase tracking-wide",
-  light: "font-medium uppercase tracking-[0.18em]",
-} as const;
-
-// Static class names (Tailwind must see them in full).
-const breakpoints = {
-  // side margins are wide enough from 1280px (for a 48rem column)
-  xl: { side: "hidden xl:block", small: "xl:hidden" },
-  // for a wider column (56rem) the margins are wide enough from 1400px
-  wide: { side: "hidden min-[1400px]:block", small: "min-[1400px]:hidden" },
-} as const;
-
-function Words({ words, className, opacity }: { words: Word[]; className: string; opacity: string }) {
+function Words({ words, className }: { words: Word[]; className: string }) {
   return (
-    <>
+    <div className={`absolute inset-0 ${className}`}>
       {words.map((w) => (
         <span
           key={w.text}
-          className={`absolute whitespace-nowrap leading-none ${opacity} ${w.color} ${wordStyles[w.style]} ${className}`}
+          className={`absolute whitespace-nowrap ${
+            w.kind === "script" ? "font-script font-normal" : "font-semibold uppercase tracking-[0.32em]"
+          } ${w.kind === "v" ? "rotate-180 [writing-mode:vertical-rl]" : ""}`}
           style={{
             left: `${w.x}%`,
             top: `${w.y}%`,
-            fontSize: w.size,
-            transform: `rotate(${w.rotate}deg)`,
+            color: w.color,
+            fontSize: `${w.size}rem`,
+            transform: w.rotate ? `rotate(${w.rotate}deg)` : undefined,
+            letterSpacing: w.kind === "script" ? "-0.03em" : undefined,
           }}
         >
           {w.text}
         </span>
       ))}
-    </>
+    </div>
   );
 }
 
-export function WordMural({
-  variant = "a",
-  contentWidth,
-  breakpoint,
-  mobileOpacity = "opacity-[0.2]",
-}: {
-  /** "b" swaps the left and right word columns, so two pages look related but not identical. */
+// Props are kept for compatibility with the pages; the layout no longer needs them.
+export function WordMural(_props: {
   variant?: "a" | "b";
-  /** Width of the centered content column, e.g. "48rem". */
-  contentWidth: string;
-  breakpoint: keyof typeof breakpoints;
+  contentWidth?: string;
+  breakpoint?: string;
   mobileOpacity?: string;
 }) {
-  const bp = breakpoints[breakpoint];
-  const left = variant === "a" ? sideA : sideB;
-  const right = variant === "a" ? sideB : sideA;
-  const sideStyle = { width: `calc((100vw - ${contentWidth}) / 2)` };
-
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-mural-paper select-none"
-    >
-      <div className="absolute -right-40 -top-40 size-72 rounded-full bg-mural-mist opacity-50 sm:size-[26rem]" />
-      <div className="absolute -bottom-40 -left-32 size-72 rounded-full bg-mural-olive opacity-15 sm:size-[26rem]" />
-      <svg
-        className="absolute inset-0 size-full text-mural-olive opacity-[0.05]"
-        viewBox="0 0 1000 800"
-        preserveAspectRatio="none"
-      >
-        <path d="M-60 120 Q 300 380 560 400 T 1080 700" fill="none" stroke="currentColor" strokeWidth="1.2" />
-        <path d="M1060 90 Q 760 300 520 420 T -40 760" fill="none" stroke="currentColor" strokeWidth="0.9" />
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#f3ece1] select-none">
+      <div className="absolute -left-[9vw] -top-[14vh] size-[26vmin] rounded-full bg-[#3b402d]" />
+      <div className="absolute -bottom-[24vh] -left-[9vw] size-[36vmin] rounded-full bg-[#d98a63]" />
+      <div className="absolute -right-[10vw] -top-[14vh] size-[42vmin] rounded-full bg-[#e3d6c4]" />
+      <div className="absolute -bottom-[20vh] -right-[9vw] size-[34vmin] rounded-full bg-[#e3d6c4]" />
+      <svg className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
+        <path d="M62 -2 C 69 8, 83 8, 90 -2" stroke="#c4572e" strokeWidth="1.3" vectorEffect="non-scaling-stroke" />
       </svg>
-
-      <div className={`absolute left-0 top-0 h-full ${bp.side}`} style={sideStyle}>
-        <Words words={left} className="" opacity="opacity-[0.42]" />
-      </div>
-      <div className={`absolute right-0 top-0 h-full ${bp.side}`} style={sideStyle}>
-        <Words words={right} className="" opacity="opacity-[0.42]" />
-      </div>
-
-      <div className={`absolute inset-0 ${bp.small}`}>
-        <Words words={small} className="" opacity={mobileOpacity} />
-      </div>
+      <Words words={desktopWords} className="max-md:hidden opacity-[0.2]" />
+      <Words words={phoneWords} className="md:hidden opacity-[0.2]" />
     </div>
   );
 }
