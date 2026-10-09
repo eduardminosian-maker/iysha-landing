@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AccordionList } from "@/components/accordion-list";
-import { WordMural } from "@/components/word-mural";
+import { PageLayout } from "@/components/page-layout";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -193,18 +193,11 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
 
 function AboutPage() {
   return (
-    <main className="relative isolate min-h-[100svh] bg-[#f3ece1] text-foreground">
-      <WordMural variant="b" contentWidth="56rem" breakpoint="wide" mobileOpacity="opacity-[0.14]" />
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col px-5 py-12 sm:px-10 sm:py-16 md:py-[clamp(1rem,4vh,4rem)] lg:px-16">
-        <h1 className="text-center text-4xl font-display font-medium leading-tight sm:text-5xl md:text-[clamp(2rem,6vh,3.25rem)]">
-          В чем идея
-        </h1>
-
-        <div className="mt-10 sm:mt-14 md:mt-[clamp(0.75rem,3vh,2.5rem)]">
-          <AccordionList idPrefix="idea" items={ideaItems} dense="desktop" />
-        </div>
-
-        <div className="mt-12 flex flex-col items-center gap-5 sm:mt-16 md:mt-[clamp(1rem,3.5vh,3rem)] md:gap-[clamp(0.5rem,1.6vh,1.25rem)]">
+    <PageLayout
+      title="В чем идея"
+      list={<AccordionList idPrefix="idea" items={ideaItems} dense="desktop" />}
+      actions={
+        <>
           <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
             <a href="https://t.me/iysha_yerevan" target="_blank" rel="noopener noreferrer">
               Подать заявку <ArrowRight aria-hidden="true" />
@@ -219,9 +212,8 @@ function AboutPage() {
           <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
             ← На главную
           </Link>
-        </div>
-      </div>
-      <div id="scroll-spacer" aria-hidden="true" />
-    </main>
+        </>
+      }
+    />
   );
 }

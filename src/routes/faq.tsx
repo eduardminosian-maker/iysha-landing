@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { AccordionList } from "@/components/accordion-list";
 import { faqItems } from "@/lib/faq-items";
 import { Button } from "@/components/ui/button";
-import { WordMural } from "@/components/word-mural";
+import { PageLayout } from "@/components/page-layout";
 
 const description =
   "Ответы на частые вопросы о сообществе IYSHA: как вступить, как проходят встречи, сколько это стоит и на каком языке мы общаемся.";
@@ -39,19 +39,12 @@ export const Route = createFileRoute("/faq")({
 
 function FaqPage() {
   return (
-    <main className="relative isolate min-h-[100svh] bg-[#f3ece1] text-foreground">
-      <WordMural variant="a" contentWidth="48rem" breakpoint="xl" />
-      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-3xl flex-col justify-center px-5 py-[clamp(1rem,3.5vh,3rem)] sm:px-10">
-        <h1 className="text-center text-[clamp(2rem,6vh,3.25rem)] font-display font-medium leading-tight">
-          Частые вопросы
-        </h1>
-
-        <div className="mt-[clamp(0.75rem,3vh,2.5rem)]">
-          <AccordionList idPrefix="faq" items={faqItems} dense />
-        </div>
-
-        <div className="mt-[clamp(1rem,3.5vh,3rem)] flex flex-col items-center gap-[clamp(0.6rem,2vh,1.25rem)]">
-          <Button asChild className="h-11 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black sm:h-12">
+    <PageLayout
+      title="Частые вопросы"
+      list={<AccordionList idPrefix="faq" items={faqItems} dense="desktop" />}
+      actions={
+        <>
+          <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
             <a href="https://t.me/iysha_yerevan" target="_blank" rel="noopener noreferrer">
               Подать заявку <ArrowRight aria-hidden="true" />
             </a>
@@ -59,9 +52,8 @@ function FaqPage() {
           <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
             ← На главную
           </Link>
-        </div>
-      </div>
-      <div id="scroll-spacer" aria-hidden="true" />
-    </main>
+        </>
+      }
+    />
   );
 }

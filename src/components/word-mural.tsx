@@ -81,7 +81,7 @@ export function WordMural(_props: {
   contentWidth?: string;
   breakpoint?: string;
   mobileOpacity?: string;
-}) {
+} = {}) {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#f3ece1] select-none">
       <div className="absolute -left-[9vw] -top-[14vh] size-[26vmin] rounded-full bg-[#3b402d]" />
