@@ -19,10 +19,10 @@ const desktopWords: Word[] = [
   { text: "СООБЩЕСТВО", x: 19, y: 8, kind: "v", color: "#1a1612", size: 1.15, rotate: 0 },
   { text: "РОСТ", x: 5, y: 55, kind: "caps", color: "#1a1612", size: 1.5, rotate: 0 },
   { text: "Together", x: 5, y: 64, kind: "script", color: "#c4572e", size: 2.4, rotate: -8 },
-  { text: "КОМАНДА", x: 9, y: 77, kind: "caps", color: "#3b402d", size: 1.15, rotate: 0 },
-  { text: "ВОЗМОЖНОСТИ", x: 15, y: 91, kind: "caps", color: "#6f655a", size: 0.95, rotate: 0 },
+  { text: "КОМАНДА", x: 9, y: 77, kind: "caps", color: "#3b402d", size: 1.15, rotate: 0, fade: true },
+  { text: "ВОЗМОЖНОСТИ", x: 15, y: 91, kind: "caps", color: "#6f655a", size: 0.95, rotate: 0, fade: true },
   { text: "НЕТВОРКИНГ", x: 58, y: 75, kind: "caps", color: "#6f655a", size: 1.3, rotate: 18, fade: true },
-  { text: "ИДЕИ", x: 36, y: 91, kind: "caps", color: "#1a1612", size: 1.3, rotate: 0 },
+  { text: "ИДЕИ", x: 36, y: 91, kind: "caps", color: "#1a1612", size: 1.3, rotate: 0, fade: true },
   { text: "ПАРТНЁРСТВО", x: 43, y: 37, kind: "caps", color: "#6f655a", size: 1.1, rotate: 16, fade: true },
   { text: "Бизнес", x: 80, y: 21, kind: "script", color: "#c4572e", size: 2.8, rotate: -5 },
   { text: "КОММЬЮНИТИ", x: 77, y: 6, kind: "v", color: "#1a1612", size: 1.15, rotate: 0 },
@@ -30,18 +30,18 @@ const desktopWords: Word[] = [
   { text: "КАРЬЕРА", x: 78, y: 33, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0 },
   { text: "YEREVAN", x: 82, y: 45, kind: "caps", color: "#c4572e", size: 1.5, rotate: 0 },
   { text: "ДРУЗЬЯ", x: 88, y: 56, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
-  { text: "ПРОЕКТЫ", x: 83, y: 68, kind: "caps", color: "#6f655a", size: 1.1, rotate: -18 },
-  { text: "ВДОХНОВЕНИЕ", x: 70, y: 82, kind: "caps", color: "#3b402d", size: 1.05, rotate: -24 },
+  { text: "ПРОЕКТЫ", x: 83, y: 68, kind: "caps", color: "#6f655a", size: 1.1, rotate: -18, fade: true },
+  { text: "ВДОХНОВЕНИЕ", x: 70, y: 82, kind: "caps", color: "#3b402d", size: 1.05, rotate: -24, fade: true },
   { text: "ЦЕННОСТИ", x: 96, y: 36, kind: "v", color: "#1a1612", size: 1.0, rotate: 0 },
-  { text: "СМЫСЛЫ", x: 54, y: 92, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0 },
+  { text: "СМЫСЛЫ", x: 54, y: 92, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0, fade: true },
   { text: "Доверие", x: 83, y: 88, kind: "script", color: "#c4572e", size: 2.2, rotate: -6 },
   { text: "ДРУЖБА", x: 62, y: 48, kind: "caps", color: "#6f655a", size: 1.2, rotate: -18, fade: true },
   { text: "ДИАЛОГ", x: 65, y: 10, kind: "caps", color: "#1a1612", size: 1.0, rotate: 12, fade: true },
   { text: "ЭНЕРГИЯ", x: 25, y: 10, kind: "caps", color: "#6f655a", size: 1.1, rotate: -12, fade: true },
-  { text: "СВЯЗИ", x: 30, y: 58, kind: "caps", color: "#1a1612", size: 1.25, rotate: 14, aboutOnly: true },
-  { text: "Вместе", x: 33, y: 66, kind: "script", color: "#c4572e", size: 2.4, rotate: -8, aboutOnly: true },
-  { text: "ЗНАКОМСТВА", x: 24, y: 81, kind: "caps", color: "#6f655a", size: 1.05, rotate: -14 },
-  { text: "Connect", x: 66, y: 58, kind: "script", color: "#c4572e", size: 2.2, rotate: -9, aboutOnly: true },
+  { text: "СВЯЗИ", x: 30, y: 58, kind: "caps", color: "#1a1612", size: 1.25, rotate: 14, aboutOnly: true, fade: true },
+  { text: "Вместе", x: 33, y: 66, kind: "script", color: "#c4572e", size: 2.4, rotate: -8, aboutOnly: true, fade: true },
+  { text: "ЗНАКОМСТВА", x: 24, y: 81, kind: "caps", color: "#6f655a", size: 1.05, rotate: -14, fade: true },
+  { text: "Connect", x: 66, y: 58, kind: "script", color: "#c4572e", size: 2.2, rotate: -9, aboutOnly: true, fade: true },
 ];
 
 const phoneWords: Word[] = [
@@ -101,8 +101,8 @@ export function WordMural({ variant }: {
       <svg className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
         <path d="M62 -2 C 69 8, 83 8, 90 -2" stroke="#c4572e" strokeWidth="1.3" vectorEffect="non-scaling-stroke" />
       </svg>
-      <Words words={desktop} className="max-md:hidden opacity-[0.2]" />
-      <Words words={phoneWords} className="md:hidden opacity-[0.2]" />
+      <Words words={desktop} className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
+      <Words words={phoneWords} className="md:hidden opacity-[0.15]" />
     </div>
   );
 }
