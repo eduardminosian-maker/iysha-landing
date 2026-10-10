@@ -10,14 +10,16 @@ export function PageLayout({
   title,
   list,
   actions,
+  muralVariant,
 }: {
   title: string;
   list: ReactNode;
   actions: ReactNode;
+  muralVariant?: "a" | "b";
 }) {
   return (
     <main className="relative isolate min-h-[100svh] bg-[#f3ece1] text-foreground">
-      <WordMural />
+      <WordMural variant={muralVariant} />
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col px-5 pt-12 pb-10 sm:px-10 sm:pt-16 md:pt-[clamp(1.5rem,7vh,4.5rem)] md:pb-[clamp(1rem,4vh,3rem)]">
         <h1 className="text-center font-display text-4xl font-medium leading-tight sm:text-5xl md:text-[clamp(2rem,6vh,3.25rem)]">
           {title}

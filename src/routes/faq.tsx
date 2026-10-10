@@ -40,6 +40,7 @@ export const Route = createFileRoute("/faq")({
 function FaqPage() {
   return (
     <PageLayout
+      muralVariant="b"
       title="Частые вопросы"
       list={<AccordionList idPrefix="faq" items={faqItems} dense="desktop" scrollToTitle={false} />}
       actions={

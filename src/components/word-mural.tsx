@@ -6,6 +6,7 @@ type Word = {
   color: string;
   size: number; // rem
   rotate: number;
+  aboutOnly?: boolean; // hidden on the FAQ page, where the list is longer
 };
 
 // Words across the whole screen, very light, so they can pass right behind the text.
@@ -34,6 +35,12 @@ const desktopWords: Word[] = [
   { text: "СМЫСЛЫ", x: 54, y: 92, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0 },
   { text: "Доверие", x: 83, y: 88, kind: "script", color: "#c4572e", size: 2.2, rotate: -6 },
   { text: "ДРУЖБА", x: 56, y: 47, kind: "caps", color: "#6f655a", size: 1.2, rotate: -20 },
+  { text: "ДИАЛОГ", x: 64, y: 29, kind: "caps", color: "#1a1612", size: 1.0, rotate: 14 },
+  { text: "ЭНЕРГИЯ", x: 61, y: 18, kind: "caps", color: "#6f655a", size: 1.1, rotate: -12 },
+  { text: "СВЯЗИ", x: 30, y: 58, kind: "caps", color: "#1a1612", size: 1.25, rotate: 14, aboutOnly: true },
+  { text: "Вместе", x: 33, y: 66, kind: "script", color: "#c4572e", size: 2.4, rotate: -8, aboutOnly: true },
+  { text: "ЗНАКОМСТВА", x: 24, y: 81, kind: "caps", color: "#6f655a", size: 1.05, rotate: -14 },
+  { text: "Connect", x: 66, y: 58, kind: "script", color: "#c4572e", size: 2.2, rotate: -9, aboutOnly: true },
 ];
 
 const phoneWords: Word[] = [
@@ -75,13 +82,14 @@ function Words({ words, className }: { words: Word[]; className: string }) {
   );
 }
 
-// Props are kept for compatibility with the pages; the layout no longer needs them.
-export function WordMural(_props: {
-  variant?: "a" | "b";
+// variant "b" (FAQ) leaves out the words meant for the empty space below the shorter About list.
+export function WordMural({ variant }: {
+  variant?: "a" | "b" | undefined;
   contentWidth?: string;
   breakpoint?: string;
   mobileOpacity?: string;
 } = {}) {
+  const desktop = variant === "b" ? desktopWords.filter((w) => !w.aboutOnly) : desktopWords;
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#f3ece1] select-none">
       <div className="absolute -left-[9vw] -top-[14vh] size-[26vmin] rounded-full bg-[#3b402d]" />
@@ -91,7 +99,7 @@ export function WordMural(_props: {
       <svg className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
         <path d="M62 -2 C 69 8, 83 8, 90 -2" stroke="#c4572e" strokeWidth="1.3" vectorEffect="non-scaling-stroke" />
       </svg>
-      <Words words={desktopWords} className="max-md:hidden opacity-[0.2]" />
+      <Words words={desktop} className="max-md:hidden opacity-[0.2]" />
       <Words words={phoneWords} className="md:hidden opacity-[0.2]" />
     </div>
   );
