@@ -6,6 +6,7 @@ type Word = {
   color: string;
   size: number; // rem
   rotate: number;
+  fade?: boolean; // passes behind or next to the text, so it is made a little lighter
   aboutOnly?: boolean; // hidden on the FAQ page, where the list is longer
 };
 
@@ -20,9 +21,9 @@ const desktopWords: Word[] = [
   { text: "Together", x: 5, y: 64, kind: "script", color: "#c4572e", size: 2.4, rotate: -8 },
   { text: "КОМАНДА", x: 9, y: 77, kind: "caps", color: "#3b402d", size: 1.15, rotate: 0 },
   { text: "ВОЗМОЖНОСТИ", x: 15, y: 91, kind: "caps", color: "#6f655a", size: 0.95, rotate: 0 },
-  { text: "НЕТВОРКИНГ", x: 58, y: 75, kind: "caps", color: "#6f655a", size: 1.3, rotate: 18 },
+  { text: "НЕТВОРКИНГ", x: 58, y: 75, kind: "caps", color: "#6f655a", size: 1.3, rotate: 18, fade: true },
   { text: "ИДЕИ", x: 36, y: 91, kind: "caps", color: "#1a1612", size: 1.3, rotate: 0 },
-  { text: "ПАРТНЁРСТВО", x: 43, y: 37, kind: "caps", color: "#6f655a", size: 1.1, rotate: 16 },
+  { text: "ПАРТНЁРСТВО", x: 43, y: 37, kind: "caps", color: "#6f655a", size: 1.1, rotate: 16, fade: true },
   { text: "Бизнес", x: 80, y: 21, kind: "script", color: "#c4572e", size: 2.8, rotate: -5 },
   { text: "КОММЬЮНИТИ", x: 77, y: 6, kind: "v", color: "#1a1612", size: 1.15, rotate: 0 },
   { text: "ЛЮБОВЬ", x: 86, y: 8, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0 },
@@ -34,9 +35,9 @@ const desktopWords: Word[] = [
   { text: "ЦЕННОСТИ", x: 96, y: 36, kind: "v", color: "#1a1612", size: 1.0, rotate: 0 },
   { text: "СМЫСЛЫ", x: 54, y: 92, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0 },
   { text: "Доверие", x: 83, y: 88, kind: "script", color: "#c4572e", size: 2.2, rotate: -6 },
-  { text: "ДРУЖБА", x: 62, y: 48, kind: "caps", color: "#6f655a", size: 1.2, rotate: -18 },
-  { text: "ДИАЛОГ", x: 65, y: 10, kind: "caps", color: "#1a1612", size: 1.0, rotate: 12 },
-  { text: "ЭНЕРГИЯ", x: 25, y: 10, kind: "caps", color: "#6f655a", size: 1.1, rotate: -12 },
+  { text: "ДРУЖБА", x: 62, y: 48, kind: "caps", color: "#6f655a", size: 1.2, rotate: -18, fade: true },
+  { text: "ДИАЛОГ", x: 65, y: 10, kind: "caps", color: "#1a1612", size: 1.0, rotate: 12, fade: true },
+  { text: "ЭНЕРГИЯ", x: 25, y: 10, kind: "caps", color: "#6f655a", size: 1.1, rotate: -12, fade: true },
   { text: "СВЯЗИ", x: 30, y: 58, kind: "caps", color: "#1a1612", size: 1.25, rotate: 14, aboutOnly: true },
   { text: "Вместе", x: 33, y: 66, kind: "script", color: "#c4572e", size: 2.4, rotate: -8, aboutOnly: true },
   { text: "ЗНАКОМСТВА", x: 24, y: 81, kind: "caps", color: "#6f655a", size: 1.05, rotate: -14 },
@@ -73,6 +74,7 @@ function Words({ words, className }: { words: Word[]; className: string }) {
             fontSize: `${w.size}rem`,
             transform: w.rotate ? `rotate(${w.rotate}deg)` : undefined,
             letterSpacing: w.kind === "script" ? "-0.03em" : undefined,
+            opacity: w.fade ? 0.6 : undefined,
           }}
         >
           {w.text}
