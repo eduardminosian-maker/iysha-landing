@@ -94,7 +94,7 @@ function Index() {
         <Words words={phoneWords} className="md:hidden opacity-[0.18]" />
       </div>
 
-      <header className="relative z-10 flex items-center justify-center px-6 py-5 sm:px-12">
+      <header className="relative z-10 flex items-center justify-center px-6 py-3 sm:px-12 sm:py-5">
         <span className="text-sm font-bold tracking-[0.4em]">IYSHA</span>
       </header>
 
@@ -103,13 +103,13 @@ function Index() {
           src="/logo-faces.svg"
           alt=""
           aria-hidden="true"
-          className="mb-5 h-[clamp(3.5rem,11vh,6.5rem)] w-auto"
+          className="mb-3 h-[clamp(2.5rem,8vh,6.5rem)] w-auto sm:mb-5 sm:h-[clamp(3.5rem,11vh,6.5rem)]"
         />
         <h1 className="font-display text-[clamp(2.4rem,min(9vh,12vw),7rem)] font-medium leading-[0.95] tracking-tight">
           Знакомства.<br />Нетворкинг.<br />
           <em className="font-medium text-[#c4572e]">Ереван.</em>
         </h1>
-        <p className="mt-6 max-w-xl text-[clamp(0.85rem,min(2vh,4vw),1.2rem)] leading-relaxed text-[#1a1612]/70">
+        <p className="mt-4 max-w-xl sm:mt-6 text-[clamp(0.85rem,min(2vh,4vw),1.2rem)] leading-relaxed text-[#1a1612]/70">
           <span className="block">Клуб живых знакомств</span>
           <span className="block">
             для совместного предпринимательства
@@ -118,28 +118,28 @@ function Index() {
           <span className="block">Вход после встречи с любым участником</span>
           <span className="block font-semibold text-[#1a1612]">Бесплатно</span>
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
           <a
             href="https://t.me/iysha_yerevan"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] transition-colors hover:bg-black"
+            className="inline-flex h-11 items-center gap-2 rounded-full bg-[#1a1612] px-5 text-[15px] font-bold sm:h-12 sm:px-8 sm:text-base text-[#f3ece1] transition-colors hover:bg-black"
           >
             Подать заявку <ArrowRight aria-hidden="true" className="size-4" />
           </a>
           <Link
             to="/about"
-            className="inline-flex h-12 items-center rounded-full border border-[#1a1612]/30 px-7 text-base font-semibold transition-colors hover:bg-[#1a1612]/5"
+            className="inline-flex h-11 items-center rounded-full border border-[#1a1612]/30 px-5 text-[15px] font-semibold sm:h-12 sm:px-7 sm:text-base transition-colors hover:bg-[#1a1612]/5"
           >
             В чем идея
           </Link>
         </div>
       </section>
 
-      <footer className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-6 sm:px-12 sm:pb-9">
-        <ol aria-label="Как к нам попасть" className="grid grid-cols-1 gap-x-8 border-t border-[#1a1612]/20 pt-4 sm:grid-cols-4 sm:pt-5">
+      <footer className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-5 sm:px-12 sm:pb-9">
+        <ol aria-label="Как к нам попасть" className="grid grid-cols-1 gap-x-8 sm:grid-cols-4 sm:border-t sm:border-[#1a1612]/20 sm:pt-5">
           {steps.map((t, i) => (
-            <li key={i} className="flex gap-3 py-1 sm:block sm:py-0">
+            <li key={i} className="flex gap-3 py-0.5 sm:block sm:py-0">
               <span className="font-display text-2xl font-medium italic text-[#c4572e] sm:text-3xl">
                 {String(i + 1).padStart(2, "0")}
               </span>
