@@ -87,6 +87,42 @@ export function Words({ words, className }: { words: Word[]; className: string }
   );
 }
 
+type Face = { x: number; y: number; w: number; r: number }; // x, y in % of the screen, w in px, r = rotation in degrees
+
+// The little two-faces logo, tossed around the page and turned every which way.
+const desktopFaces: Face[] = [
+  { x: 13, y: 21, w: 52, r: 200 }, { x: 2, y: 9, w: 44, r: 75 }, { x: 3, y: 46, w: 50, r: -40 },
+  { x: 14, y: 69, w: 46, r: 150 }, { x: 2, y: 85, w: 54, r: 290 }, { x: 25, y: 40, w: 44, r: 20 },
+  { x: 34, y: 14, w: 46, r: 250 }, { x: 47, y: 5, w: 50, r: 120 }, { x: 56, y: 19, w: 44, r: -70 },
+  { x: 72, y: 14, w: 48, r: 180 }, { x: 91, y: 22, w: 52, r: 60 }, { x: 71, y: 56, w: 46, r: 330 },
+  { x: 91, y: 30, w: 44, r: 230 }, { x: 95, y: 66, w: 50, r: 100 }, { x: 66, y: 28, w: 46, r: -150 },
+  { x: 76, y: 76, w: 50, r: 10 }, { x: 92, y: 82, w: 46, r: 215 }, { x: 61, y: 68, w: 52, r: 300 },
+  { x: 28, y: 94, w: 44, r: 90 }, { x: 59, y: 60, w: 44, r: 160 }, { x: 23, y: 73, w: 46, r: -100 },
+];
+const phoneFaces: Face[] = [
+  { x: 40, y: 2, w: 34, r: 200 }, { x: 85, y: 17, w: 36, r: 75 }, { x: 40, y: 27, w: 34, r: -40 },
+  { x: 2, y: 38, w: 36, r: 150 }, { x: 80, y: 47, w: 34, r: 290 }, { x: 36, y: 44, w: 32, r: 20 },
+  { x: 86, y: 63, w: 36, r: 250 }, { x: 38, y: 70, w: 34, r: 120 }, { x: 4, y: 74, w: 34, r: -70 },
+  { x: 82, y: 80, w: 36, r: 180 }, { x: 36, y: 86, w: 32, r: 60 }, { x: 80, y: 95, w: 34, r: 330 },
+  { x: 2, y: 56, w: 30, r: 230 }, { x: 44, y: 14, w: 30, r: 100 },
+];
+
+function Faces({ faces, className }: { faces: Face[]; className: string }) {
+  return (
+    <div className={`absolute inset-0 ${className}`}>
+      {faces.map((f, i) => (
+        <img
+          key={i}
+          src="/logo-faces.svg"
+          alt=""
+          className="absolute h-auto"
+          style={{ left: `${f.x}%`, top: `${f.y}%`, width: f.w, transform: `rotate(${f.r}deg)` }}
+        />
+      ))}
+    </div>
+  );
+}
+
 // variant "b" (FAQ) leaves out the words meant for the empty space below the shorter About list.
 export function WordMural({ variant }: {
   variant?: "a" | "b" | undefined;
@@ -106,6 +142,8 @@ export function WordMural({ variant }: {
       </svg>
       <Words words={desktop} className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
       <Words words={phoneWords} className="md:hidden opacity-[0.15]" />
+      <Faces faces={desktopFaces} className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
+      <Faces faces={phoneFaces} className="md:hidden opacity-[0.14]" />
     </div>
   );
 }
