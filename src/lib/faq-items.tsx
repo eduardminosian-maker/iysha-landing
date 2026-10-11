@@ -14,7 +14,7 @@ function TelegramLink() {
 /** `text` is the plain-text answer, used for search-engine structured data. */
 export const faqItems: { title: string; content: React.ReactNode; text: string }[] = [
   {
-    title: "Как попасть в сообщество",
+    title: "Как попасть в сообщество?",
     text: "Подать заявку в Telegram. Вам предложат встречу. Встретиться. Если мы и вы захотим встретиться снова – вы в сообществе.",
     content: (
       <p>
@@ -24,7 +24,7 @@ export const faqItems: { title: string; content: React.ReactNode; text: string }
     ),
   },
   {
-    title: "Нужно ли что-то написать в Telegram",
+    title: "Нужно ли что-то написать в Telegram?",
     text: "Да, лучше дополнительно написать @zarazakupidon о том, что вы хотите попасть в группу. Это ускорит процесс.",
     content: (
       <p>
@@ -35,7 +35,7 @@ export const faqItems: { title: string; content: React.ReactNode; text: string }
     ),
   },
   {
-    title: "Как быстро ответят",
+    title: "Как быстро ответят?",
     text: "Если вы напишете @zarazakupidon, то он обычно отвечает в течение суток.",
     content: (
       <p>
@@ -44,7 +44,7 @@ export const faqItems: { title: string; content: React.ReactNode; text: string }
     ),
   },
   {
-    title: "Почему сначала встреча",
+    title: "Почему сначала встреча?",
     text: "Тех, кто готов встретиться, с большей вероятностью объединит желание делать что-то вместе.",
     content: (
       <p>
@@ -54,22 +54,22 @@ export const faqItems: { title: string; content: React.ReactNode; text: string }
     ),
   },
   {
-    title: "Кто может прийти",
+    title: "Кто может прийти?",
     text: "Любой человек, осознающий, для чего ему расширять свое окружение.",
     content: <p>Любой человек, осознающий, для чего ему расширять свое окружение.</p>,
   },
   {
-    title: "Нужно ли быть предпринимателем",
+    title: "Нужно ли быть предпринимателем?",
     text: "Нет.",
     content: <p>Нет.</p>,
   },
   {
-    title: "Участие бесплатное на всех этапах для любых мероприятий",
+    title: "Участие бесплатное на всех этапах для любых мероприятий?",
     text: "Да.",
     content: <p>Да.</p>,
   },
   {
-    title: "Как проходят встречи",
+    title: "Как проходят встречи?",
     text: "Встречаемся по 6 человек или иногда меньше, в 13:00 по воскресеньям в каких-либо кафе Еревана. Рассказываем друг другу о своих идеях, желаниях, проектах. Пробуем определить общие интересы и запланировать конкретные шаги.",
     content: (
       <p>
@@ -81,7 +81,7 @@ export const faqItems: { title: string; content: React.ReactNode; text: string }
     ),
   },
   {
-    title: "На каком языке проходят встречи",
+    title: "На каком языке проходят встречи?",
     text: "Сейчас на русском, так как основатель сообщества – русскоязычный армянин, пока не говорящий на армянском. Но планируем проводить встречи также на армянском и английском. Если захотите, можете в этом помочь.",
     content: (
       <p>
