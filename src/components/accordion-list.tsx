@@ -11,7 +11,7 @@ export function AccordionList({
   idPrefix: string;
   items: { title: string; content: React.ReactNode }[];
   /** Compact rows that scale with the screen height, so a whole list fits on one screen. */
-  dense?: boolean | "desktop";
+  dense?: boolean | "desktop" | "fit";
   /** When false, opening or closing a question never moves the page: the answer just opens downwards. */
   scrollToTitle?: boolean;
 }) {
@@ -85,7 +85,9 @@ export function AccordionList({
                 className={`flex flex-1 cursor-pointer items-center justify-between gap-4 text-left font-bold leading-snug ${
                   dense === true
                     ? "py-[clamp(0.55rem,1.7vh,1.25rem)] text-[clamp(0.9rem,2vh,1.125rem)]"
-                    : dense === "desktop"
+                    : dense === "fit"
+                      ? "py-[clamp(0.4rem,1.4vh,1.25rem)] text-[clamp(0.85rem,2.1vh,1rem)] sm:py-6 sm:text-lg md:py-[clamp(0.55rem,1.7vh,1.25rem)] md:text-[clamp(0.9rem,2vh,1.125rem)]"
+                      : dense === "desktop"
                       ? "py-5 text-base sm:py-6 sm:text-lg md:py-[clamp(0.55rem,1.7vh,1.25rem)] md:text-[clamp(0.9rem,2vh,1.125rem)]"
                       : "py-5 text-base sm:py-6 sm:text-lg"
                 }`}
