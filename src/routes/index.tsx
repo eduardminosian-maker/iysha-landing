@@ -62,8 +62,8 @@ const steps = [
 
 function Index() {
   return (
-    <main className="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-[#f3ece1] text-[#1a1612]">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 select-none">
+    <main className="relative flex min-h-[100svh] flex-col overflow-x-hidden max-sm:fixed max-sm:inset-0 max-sm:min-h-0 max-sm:overflow-y-auto bg-[#f3ece1] text-[#1a1612]">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 select-none overflow-hidden">
         <div className="absolute -left-[9vw] -top-[14vh] size-[26vmin] rounded-full bg-[#3b402d]" />
         <div className="absolute -bottom-[24vh] -left-[9vw] size-[36vmin] rounded-full bg-[#d98a63]" />
         <div className="absolute -right-[10vw] -top-[14vh] size-[42vmin] rounded-full bg-[#e3d6c4]" />
