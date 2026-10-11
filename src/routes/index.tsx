@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { Words, phoneWords } from "@/components/word-mural";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -50,10 +51,6 @@ const muralWords: MuralWord[] = [
   { text: "ПРОЕКТЫ", x: 72, y: 60, kind: "caps", color: "#6f655a", size: 1.0, rotate: 0, desktopOnly: true },
   { text: "ЦЕННОСТИ", x: 96, y: 38, kind: "v", color: "#1a1612", size: 1.0, rotate: 0, desktopOnly: true },
   { text: "СМЫСЛЫ", x: 68, y: 67, kind: "caps", color: "#1a1612", size: 1.2, rotate: 0, desktopOnly: true },
-  { text: "Мечты", x: 4, y: 6.5, kind: "script", color: "#c4572e", size: 2.0, rotate: -6, desktopOnly: false },
-  { text: "ЛЮДИ", x: 68, y: 8.5, kind: "caps", color: "#1a1612", size: 0.8, rotate: 0, desktopOnly: false },
-  { text: "СООБЩЕСТВО", x: 5, y: 70.5, kind: "caps", color: "#6f655a", size: 0.75, rotate: 0, desktopOnly: false },
-  { text: "Бизнес", x: 62, y: 69.5, kind: "script", color: "#c4572e", size: 1.9, rotate: -5, desktopOnly: false },
 ];
 
 const steps = [
@@ -77,7 +74,7 @@ function Index() {
         {muralWords.map((w) => (
           <span
             key={`${w.text}-${w.desktopOnly}`}
-            className={`absolute whitespace-nowrap ${w.desktopOnly ? "max-md:hidden" : "md:hidden [@media(max-height:760px)]:hidden"} ${
+            className={`absolute whitespace-nowrap ${w.desktopOnly ? "max-md:hidden" : "hidden"} ${
               w.kind === "script"
                 ? "font-script font-normal"
                 : "font-semibold uppercase tracking-[0.32em]"
@@ -94,6 +91,7 @@ function Index() {
             {w.text}
           </span>
         ))}
+        <Words words={phoneWords} className="md:hidden opacity-[0.18]" />
       </div>
 
       <header className="relative z-10 flex items-center justify-center px-6 py-5 sm:px-12">

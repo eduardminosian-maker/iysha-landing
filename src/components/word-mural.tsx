@@ -44,21 +44,24 @@ const desktopWords: Word[] = [
   { text: "Connect", x: 66, y: 58, kind: "script", color: "#c4572e", size: 2.2, rotate: -9, aboutOnly: true, fade: true },
 ];
 
-const phoneWords: Word[] = [
-  { text: "Мечты", x: 3, y: 3, kind: "script", color: "#c4572e", size: 1.9, rotate: -6 },
-  { text: "ЛЮДИ", x: 66, y: 6, kind: "caps", color: "#1a1612", size: 0.8, rotate: 0 },
-  { text: "СООБЩЕСТВО", x: 4, y: 22, kind: "caps", color: "#6f655a", size: 0.7, rotate: 0 },
-  { text: "Бизнес", x: 60, y: 30, kind: "script", color: "#c4572e", size: 1.9, rotate: -5 },
-  { text: "РОСТ", x: 6, y: 42, kind: "caps", color: "#1a1612", size: 0.9, rotate: 0 },
-  { text: "YEREVAN", x: 58, y: 52, kind: "caps", color: "#c4572e", size: 0.85, rotate: 0 },
-  { text: "Together", x: 4, y: 63, kind: "script", color: "#c4572e", size: 1.9, rotate: -8 },
-  { text: "ПРОЕКТЫ", x: 62, y: 72, kind: "caps", color: "#6f655a", size: 0.75, rotate: 0 },
-  { text: "КОМАНДА", x: 5, y: 82, kind: "caps", color: "#3b402d", size: 0.8, rotate: 0 },
-  { text: "Доверие", x: 58, y: 90, kind: "script", color: "#c4572e", size: 1.8, rotate: -6 },
-  { text: "СМЫСЛЫ", x: 6, y: 94, kind: "caps", color: "#1a1612", size: 0.8, rotate: 0 },
+export const phoneWords: Word[] = [
+  // Phones: words lie diagonally, tilting up and down in turn, down the whole screen.
+  { text: "Мечты", x: 4, y: 4, kind: "script", color: "#c4572e", size: 1.9, rotate: -12 },
+  { text: "ЛЮДИ", x: 62, y: 8, kind: "caps", color: "#1a1612", size: 0.85, rotate: 16 },
+  { text: "СООБЩЕСТВО", x: 5, y: 16, kind: "caps", color: "#6f655a", size: 0.75, rotate: 16 },
+  { text: "Бизнес", x: 60, y: 24, kind: "script", color: "#c4572e", size: 1.9, rotate: -14 },
+  { text: "РОСТ", x: 8, y: 32, kind: "caps", color: "#1a1612", size: 0.9, rotate: -18 },
+  { text: "YEREVAN", x: 56, y: 40, kind: "caps", color: "#c4572e", size: 0.85, rotate: 16 },
+  { text: "Together", x: 4, y: 48, kind: "script", color: "#c4572e", size: 1.9, rotate: -12 },
+  { text: "ПРОЕКТЫ", x: 58, y: 56, kind: "caps", color: "#6f655a", size: 0.8, rotate: -16 },
+  { text: "КОМАНДА", x: 6, y: 64, kind: "caps", color: "#3b402d", size: 0.85, rotate: 16 },
+  { text: "Доверие", x: 56, y: 72, kind: "script", color: "#c4572e", size: 1.8, rotate: -12 },
+  { text: "НЕТВОРКИНГ", x: 4, y: 80, kind: "caps", color: "#6f655a", size: 0.75, rotate: -18 },
+  { text: "СМЫСЛЫ", x: 60, y: 87, kind: "caps", color: "#1a1612", size: 0.85, rotate: 14 },
+  { text: "ИДЕИ", x: 10, y: 94, kind: "caps", color: "#1a1612", size: 0.85, rotate: 14 },
 ];
 
-function Words({ words, className }: { words: Word[]; className: string }) {
+export function Words({ words, className }: { words: Word[]; className: string }) {
   return (
     <div className={`absolute inset-0 ${className}`}>
       {words.map((w) => (
