@@ -99,6 +99,12 @@ function Index() {
       </header>
 
       <section className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 text-center">
+        <img
+          src="/logo-faces.svg"
+          alt=""
+          aria-hidden="true"
+          className="mb-5 h-[clamp(3.5rem,11vh,6.5rem)] w-auto"
+        />
         <h1 className="font-display text-[clamp(2.4rem,min(9vh,12vw),7rem)] font-medium leading-[0.95] tracking-tight">
           Знакомства.<br />Нетворкинг.<br />
           <em className="font-medium text-[#c4572e]">Ереван.</em>
