@@ -57,7 +57,8 @@ const muralWords: MuralWord[] = [
 const steps = [
   "Отправь кружок или голосовое в Telegram",
   "Возможно, тебе предложат встречу",
-  "При встрече мы вправе выбрать или не выбрать друг друга. Если выбираем друг друга – ты в комьюнити",
+  "При встрече мы вправе выбрать или не выбрать друг друга",
+  "Если мы выбираем друг друга – ты в комьюнити",
 ];
 
 function Index() {
@@ -138,7 +139,7 @@ function Index() {
       </section>
 
       <footer className="relative top-px z-10 mx-auto w-full max-w-5xl px-6 pb-5 sm:top-0 sm:px-12 sm:pb-9">
-        <ol aria-label="Как к нам попасть" className="grid grid-cols-1 gap-x-8 sm:grid-cols-3 sm:border-t sm:border-[#1a1612]/20 sm:pt-5">
+        <ol aria-label="Как к нам попасть" className="grid grid-cols-1 gap-x-8 sm:grid-cols-4 sm:border-t sm:border-[#1a1612]/20 sm:pt-5">
           {steps.map((t, i) => (
             <li key={i} className="flex gap-3 py-0.5 sm:block sm:py-0">
               <span className="font-display text-2xl font-medium italic text-[#c4572e] sm:text-3xl">
