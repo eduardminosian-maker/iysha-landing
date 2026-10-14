@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Words, phoneWords } from "@/components/word-mural";
+import { APPLY_URL, NEXT_MEETING } from "@/lib/apply";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/")({
     ],
     meta: [
       { title: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
-      { name: "description", content: "Клуб живых знакомств для совместного предпринимательства и не только. Вход после встречи с любым участником." },
+      { name: "description", content: "Клуб живых знакомств для совместного предпринимательства и не только. Вход после личной встречи." },
       { property: "og:title", content: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
       { property: "og:description", content: "Клуб живых знакомств для совместного предпринимательства и не только." },
       { property: "og:type", content: "website" },
@@ -54,10 +55,10 @@ const muralWords: MuralWord[] = [
 ];
 
 const steps = [
-  "Подай заявку в Telegram",
-  "Приходи на бесплатную встречу, можно тет-а-тет с любым участником",
-  "Получи доступ в группу",
-  "Знакомься с теми, кто тебе интересен",
+  "Подай заявку: напиши мне в Telegram",
+  "Запиши кружок или голосовое: кто ты и что тебя зажигает",
+  "Приходи на встречу: до 6 человек, бесплатно",
+  "Мы оба вправе выбрать или не выбрать друг друга",
 ];
 
 function Index() {
@@ -115,17 +116,17 @@ function Index() {
             для совместного предпринимательства
             <span className="max-md:block"> и не только</span>
           </span>
-          <span className="block">Вход после встречи с любым участником</span>
-          <span className="block font-semibold text-[#1a1612]">Бесплатно</span>
+          <span className="block">Вход после личной встречи</span>
+          <span className="block font-semibold text-[#1a1612]">Ближайшая встреча {NEXT_MEETING.date} · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
           <a
-            href="https://t.me/iysha_yerevan"
+            href={APPLY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex h-11 items-center gap-2 rounded-full bg-[#1a1612] px-5 text-[15px] font-bold sm:h-12 sm:px-8 sm:text-base text-[#f3ece1] transition-colors hover:bg-black"
           >
-            Подать заявку <ArrowRight aria-hidden="true" className="size-4" />
+            <span className="sm:hidden">Подать заявку</span><span className="max-sm:hidden">Подать заявку на встречу</span> <ArrowRight aria-hidden="true" className="size-4" />
           </a>
           <Link
             to="/about"

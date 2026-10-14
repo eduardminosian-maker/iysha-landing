@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { APPLY_URL, NEXT_MEETING } from "@/lib/apply";
 import { AccordionList } from "@/components/accordion-list";
 import { PageLayout } from "@/components/page-layout";
 
@@ -28,6 +29,47 @@ export const Route = createFileRoute("/about")({
 });
 
 const ideaItems: { title: string; content: React.ReactNode }[] = [
+  {
+    title: "Как попасть на встречу",
+    content: (
+      <>
+        <p>
+          Ближайшая встреча – {NEXT_MEETING.weekday}, {NEXT_MEETING.date}, в {NEXT_MEETING.time}, в кафе в Ереване.
+          До 6 человек, трое уже есть, нужны еще трое. Бесплатно.
+        </p>
+        <p>1. Подай заявку: напиши мне в Telegram, @zarazakupidon.</p>
+        <p>
+          2. Отправь короткую самопрезентацию голосовым сообщением или видеокружком: кто ты, чем горишь, чего хочешь.
+          Минуты достаточно, можно и дольше. Текстом мы такие заявки не рассматриваем: нам важно услышать и увидеть,
+          как ты себя выражаешь.
+        </p>
+        <p>3. Приходи на встречу.</p>
+        <p>
+          4. Мы имеем право выбрать или не выбрать друг друга. Если совпали – ты в сообществе. Общего чата пока нет:
+          сообщество уже живет на встречах, а чат появится позже.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Кому у нас будет хорошо",
+    content: (
+      <>
+        <p>
+          Тем, кто чем-то горит. Для нас важна энергия, которая исходит от человека: умение зажигать. Такой человек
+          становится магнитом для других. Если тебя ничего не зажигает, на встрече, скорее всего, будет скучно.
+        </p>
+        <p>
+          Действующим предпринимателям и тем, кто только начинает, даже если тебе кажется, что начать очень трудно.
+        </p>
+        <p>
+          Мы не открыты к проектам в области эзотерики, астрологии, нумерологии и подобного. Не потому, что это
+          плохо, а потому что у нашего сообщества уже сложился другой вайб: люди, идеи и реальные проекты.
+        </p>
+        <p>Выбор работает в обе стороны: ты тоже решаешь, твое ли это.</p>
+      </>
+    ),
+  },
   {
     title: "Как можно расти с нами",
     content: (
@@ -199,8 +241,8 @@ function AboutPage() {
       actions={
         <>
           <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
-            <a href="https://t.me/iysha_yerevan" target="_blank" rel="noopener noreferrer">
-              Подать заявку <ArrowRight aria-hidden="true" />
+            <a href={APPLY_URL} target="_blank" rel="noopener noreferrer">
+              Подать заявку на встречу <ArrowRight aria-hidden="true" />
             </a>
           </Button>
           <Link
