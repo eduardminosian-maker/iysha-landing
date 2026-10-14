@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Words, phoneWords } from "@/components/word-mural";
-import { APPLY_URL, NEXT_MEETING } from "@/lib/apply";
+import { APPLY_URL, useNextMeeting } from "@/lib/apply";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,6 +62,7 @@ const steps = [
 ];
 
 function Index() {
+  const meeting = useNextMeeting();
   return (
     <main className="relative flex min-h-[100svh] flex-col overflow-x-hidden max-sm:fixed max-sm:inset-0 max-sm:min-h-0 max-sm:overflow-y-auto bg-[#f3ece1] text-[#1a1612]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 select-none overflow-hidden">
@@ -117,7 +118,7 @@ function Index() {
             <span className="max-md:block"> и не только</span>
           </span>
           <span className="block">Вход после личной встречи</span>
-          <span className="block font-semibold text-[#1a1612]">Ближайшая встреча {NEXT_MEETING.date} · бесплатно</span>
+          <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date} · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
           <a

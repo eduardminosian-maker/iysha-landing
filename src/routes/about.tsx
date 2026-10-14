@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { APPLY_URL, NEXT_MEETING } from "@/lib/apply";
+import { APPLY_URL, useNextMeeting, type NextMeeting } from "@/lib/apply";
 import { AccordionList } from "@/components/accordion-list";
 import { PageLayout } from "@/components/page-layout";
 
@@ -28,14 +28,14 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
-const ideaItems: { title: string; content: React.ReactNode }[] = [
+const makeIdeaItems = (meeting: NextMeeting & { k: string }): { title: string; content: React.ReactNode }[] => [
   {
     title: "Как попасть на встречу",
     content: (
       <>
-        <p>
-          Ближайшая встреча – {NEXT_MEETING.weekday}, {NEXT_MEETING.date}, в {NEXT_MEETING.time}, в кафе в Ереване.
-          До 6 человек, трое уже есть, нужны еще трое. Бесплатно.
+        <p key={meeting.k} suppressHydrationWarning>
+          Ближайшая встреча – {meeting.weekday}, {meeting.date}, в {meeting.time}, в кафе в Ереване.
+          До 6 человек. Бесплатно.
         </p>
         <p>1. Подай заявку: напиши мне в Telegram, @zarazakupidon.</p>
         <p>
@@ -234,10 +234,11 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
 ];
 
 function AboutPage() {
+  const meeting = useNextMeeting();
   return (
     <PageLayout
       title="В чем идея"
-      list={<AccordionList idPrefix="idea" items={ideaItems} dense="desktop" />}
+      list={<AccordionList idPrefix="idea" items={makeIdeaItems(meeting)} dense="desktop" />}
       actions={
         <>
           <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
