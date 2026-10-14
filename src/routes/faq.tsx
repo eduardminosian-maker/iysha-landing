@@ -49,7 +49,7 @@ function FaqPage() {
         <>
           <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
             <a href={APPLY_URL} target="_blank" rel="noopener noreferrer">
-              Подать заявку на встречу <ArrowRight aria-hidden="true" />
+              Подать заявку <ArrowRight aria-hidden="true" />
             </a>
           </Button>
           <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">

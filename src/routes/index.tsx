@@ -55,10 +55,9 @@ const muralWords: MuralWord[] = [
 ];
 
 const steps = [
-  "Подай заявку: напиши мне в Telegram",
-  "Запиши кружок или голосовое: кто ты и что тебя зажигает",
-  "Приходи на встречу: до 6 человек, бесплатно",
-  "Мы оба вправе выбрать или не выбрать друг друга",
+  "Отправь кружок или голосовое в Telegram",
+  "Возможно, тебе предложат встречу",
+  "При встрече мы вправе выбрать или не выбрать друг друга. Если выбираем друг друга – ты в комьюнити",
 ];
 
 function Index() {
@@ -127,7 +126,7 @@ function Index() {
             rel="noopener noreferrer"
             className="inline-flex h-11 items-center gap-2 rounded-full bg-[#1a1612] px-5 text-[15px] font-bold sm:h-12 sm:px-8 sm:text-base text-[#f3ece1] transition-colors hover:bg-black"
           >
-            <span className="sm:hidden">Подать заявку</span><span className="max-sm:hidden">Подать заявку на встречу</span> <ArrowRight aria-hidden="true" className="size-4" />
+            Подать заявку <ArrowRight aria-hidden="true" className="size-4" />
           </a>
           <Link
             to="/about"
@@ -139,7 +138,7 @@ function Index() {
       </section>
 
       <footer className="relative top-px z-10 mx-auto w-full max-w-5xl px-6 pb-5 sm:top-0 sm:px-12 sm:pb-9">
-        <ol aria-label="Как к нам попасть" className="grid grid-cols-1 gap-x-8 sm:grid-cols-4 sm:border-t sm:border-[#1a1612]/20 sm:pt-5">
+        <ol aria-label="Как к нам попасть" className="grid grid-cols-1 gap-x-8 sm:grid-cols-3 sm:border-t sm:border-[#1a1612]/20 sm:pt-5">
           {steps.map((t, i) => (
             <li key={i} className="flex gap-3 py-0.5 sm:block sm:py-0">
               <span className="font-display text-2xl font-medium italic text-[#c4572e] sm:text-3xl">
