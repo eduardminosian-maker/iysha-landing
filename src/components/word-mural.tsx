@@ -63,7 +63,7 @@ export const phoneWords: Word[] = [
   { text: "ИДЕИ", x: 10, y: 94, kind: "caps", color: "#1a1612", size: 0.85, rotate: 14 },
 ];
 
-export function Words({ words, className, avoidColumn }: { words: Word[]; className: string; avoidColumn?: boolean }) {
+export function Words({ words, className, avoidColumn, solid }: { words: Word[]; className: string; avoidColumn?: boolean; solid?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const [touching, setTouching] = useState<Set<string>>(new Set());
   // Words may only be fully visible outside the text column; any word that reaches into it is made lighter.
@@ -101,7 +101,7 @@ export function Words({ words, className, avoidColumn }: { words: Word[]; classN
             fontSize: `${w.size}rem`,
             transform: w.rotate ? `rotate(${w.rotate}deg)` : undefined,
             letterSpacing: w.kind === "script" ? "-0.03em" : undefined,
-            opacity: touching.has(w.text) ? (w.kind === "v" ? 0 : 0.35) : w.fade ? 0.6 : undefined,
+            opacity: touching.has(w.text) ? (w.kind === "v" ? 0 : solid ? 0.07 : 0.35) : w.fade ? (solid ? 0.12 : 0.6) : undefined,
           }}
         >
           {w.text}
@@ -190,7 +190,7 @@ export function WordMural({ variant }: {
       <svg className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
         <path d="M62 -2 C 69 8, 83 8, 90 -2" stroke="#c4572e" strokeWidth="1.3" vectorEffect="non-scaling-stroke" />
       </svg>
-      <Words words={desktop} avoidColumn className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
+      <Words words={desktop} avoidColumn solid className="max-md:hidden" />
       <Words words={phoneWords} className="md:hidden opacity-[0.15]" />
       <Shapes shapes={shapesA} className="hidden min-[1024px]:max-[1279px]:block" />
       <Shapes shapes={shapesB} className="hidden min-[1280px]:max-[1599px]:block" />
