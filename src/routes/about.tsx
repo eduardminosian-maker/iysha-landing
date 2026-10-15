@@ -30,7 +30,7 @@ export const Route = createFileRoute("/about")({
 
 const ideaItems: { title: string; content: React.ReactNode }[] = [
   {
-    title: "Кому у нас будет хорошо",
+    title: "Кому у нас будет хорошо?",
     content: (
       <>
         <p>
@@ -49,7 +49,7 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
     ),
   },
   {
-    title: "Как можно расти с нами",
+    title: "Как можно расти с нами?",
     content: (
       <>
         <p>Мы встречаемся небольшими группами, примерно по шесть человек. Так нужно, чтобы успеть познакомиться, а не обменяться визитками.</p>
