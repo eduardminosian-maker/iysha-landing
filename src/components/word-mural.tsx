@@ -87,32 +87,62 @@ export function Words({ words, className }: { words: Word[]; className: string }
   );
 }
 
-type Face = { x: number; y: number; w: number; r: number }; // x: % of the side gutter, y: % of the screen height, w in px, r = rotation in degrees
+type Shape = { x: number; y: number; k: "tri" | "sq" | "ring" | "star" | "hex" | "dot"; c: string; w: number; r: number }; // x, y: centre in % of the screen
 
-// The little two-faces logo, tossed around and turned every which way, but only in the empty side gutters
-// (left and right of the text column), never behind the text. On narrow screens the text fills the width, so none.
-const leftFaces: Face[] = [
-  { x: 30, y: 10, w: 48, r: 75 }, { x: 55, y: 22, w: 52, r: 200 }, { x: 15, y: 34, w: 44, r: 20 },
-  { x: 45, y: 46, w: 50, r: -40 }, { x: 20, y: 58, w: 46, r: -100 }, { x: 55, y: 70, w: 46, r: 150 },
-  { x: 25, y: 82, w: 54, r: 290 }, { x: 60, y: 93, w: 44, r: 90 },
+// Simple geometric decorations, only in the free space (not under the text column, the words, the circles or the arc).
+// The free space depends on the screen width, so there is one hand-checked set per width range.
+const shapesA: Shape[] = [
+  { x: 5.0, y: 82.0, k: "hex", c: "#d98a63", w: 34, r: 330 },
+  { x: 93.5, y: 81.0, k: "dot", c: "#3b402d", w: 22, r: 210 },
 ];
-const rightFaces: Face[] = [
-  { x: 40, y: 12, w: 52, r: 60 }, { x: 15, y: 24, w: 44, r: 230 }, { x: 55, y: 36, w: 46, r: -150 },
-  { x: 30, y: 48, w: 50, r: 180 }, { x: 60, y: 60, w: 44, r: 160 }, { x: 20, y: 72, w: 50, r: 100 },
-  { x: 50, y: 82, w: 46, r: 215 }, { x: 30, y: 92, w: 52, r: 330 },
+const shapesB: Shape[] = [
+  { x: 4.5, y: 29.0, k: "sq", c: "#3b402d", w: 22, r: 75 },
+  { x: 5.0, y: 81.0, k: "tri", c: "#d98a63", w: 40, r: 105 },
+  { x: 16.0, y: 56.0, k: "star", c: "#c4572e", w: 22, r: 270 },
+  { x: 84.5, y: 56.5, k: "sq", c: "#c4572e", w: 28, r: 195 },
+  { x: 92.0, y: 39.0, k: "ring", c: "#3b402d", w: 40, r: 75 },
+  { x: 93.0, y: 81.0, k: "tri", c: "#3b402d", w: 40, r: 60 },
+];
+const shapesC: Shape[] = [
+  { x: 3.5, y: 80.0, k: "sq", c: "#c4572e", w: 22, r: 90 },
+  { x: 4.5, y: 29.0, k: "sq", c: "#3b402d", w: 28, r: 135 },
+  { x: 15.0, y: 7.5, k: "ring", c: "#3b402d", w: 28, r: 75 },
+  { x: 15.0, y: 33.5, k: "dot", c: "#3b402d", w: 40, r: 135 },
+  { x: 19.0, y: 58.5, k: "tri", c: "#d98a63", w: 40, r: 75 },
+  { x: 21.0, y: 85.0, k: "sq", c: "#d98a63", w: 22, r: 150 },
+  { x: 23.0, y: 42.5, k: "ring", c: "#c4572e", w: 22, r: 285 },
+  { x: 77.0, y: 46.5, k: "dot", c: "#3b402d", w: 34, r: 30 },
+  { x: 77.5, y: 70.5, k: "ring", c: "#d98a63", w: 34, r: 225 },
+  { x: 83.0, y: 58.0, k: "dot", c: "#d98a63", w: 28, r: 225 },
+  { x: 85.0, y: 81.0, k: "star", c: "#3b402d", w: 28, r: 15 },
+  { x: 90.5, y: 35.0, k: "ring", c: "#c4572e", w: 34, r: 180 },
+  { x: 92.5, y: 82.5, k: "tri", c: "#c4572e", w: 40, r: 165 },
+  { x: 95.0, y: 66.0, k: "star", c: "#c4572e", w: 22, r: 210 },
 ];
 
-function Faces({ faces, className }: { faces: Face[]; className: string }) {
+function ShapeIcon({ k, c }: { k: Shape["k"]; c: string }) {
+  switch (k) {
+    case "tri": return <polygon points="12,3 22,20 2,20" fill={c} />;
+    case "sq": return <rect x="4" y="4" width="16" height="16" fill={c} />;
+    case "ring": return <circle cx="12" cy="12" r="8" fill="none" stroke={c} strokeWidth="2.5" />;
+    case "dot": return <circle cx="12" cy="12" r="7" fill={c} />;
+    case "hex": return <polygon points="12,2 20.7,7 20.7,17 12,22 3.3,17 3.3,7" fill="none" stroke={c} strokeWidth="2.5" strokeLinejoin="round" />;
+    case "star": return <polygon points="12,2 14.9,8.9 22,9.5 16.6,14.3 18.2,21.5 12,17.7 5.8,21.5 7.4,14.3 2,9.5 9.1,8.9" fill={c} />;
+  }
+}
+
+function Shapes({ shapes, className }: { shapes: Shape[]; className: string }) {
   return (
-    <div className={`absolute inset-y-0 ${className}`}>
-      {faces.map((f, i) => (
-        <img
+    <div className={`absolute inset-0 ${className}`}>
+      {shapes.map((f, i) => (
+        <svg
           key={i}
-          src="/logo-faces.svg"
-          alt=""
-          className="absolute h-auto"
-          style={{ left: `${f.x}%`, top: `${f.y}%`, width: f.w, transform: `rotate(${f.r}deg)` }}
-        />
+          viewBox="0 0 24 24"
+          className="absolute"
+          style={{ left: `${f.x}%`, top: `${f.y}%`, width: f.w, height: f.w, transform: `translate(-50%,-50%) rotate(${f.r}deg)` }}
+        >
+          <ShapeIcon k={f.k} c={f.c} />
+        </svg>
       ))}
     </div>
   );
@@ -137,9 +167,9 @@ export function WordMural({ variant }: {
       </svg>
       <Words words={desktop} className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
       <Words words={phoneWords} className="md:hidden opacity-[0.15]" />
-      {/* the text column is 43rem wide: the gutters are what is left on each side */}
-      <Faces faces={leftFaces} className="max-lg:hidden left-0 w-[calc((100%-43rem)/2)] opacity-[0.2]" />
-      <Faces faces={rightFaces} className="max-lg:hidden right-0 w-[calc((100%-43rem)/2)] opacity-[0.2]" />
+      <Shapes shapes={shapesA} className="hidden min-[1024px]:max-[1279px]:block opacity-[0.45]" />
+      <Shapes shapes={shapesB} className="hidden min-[1280px]:max-[1599px]:block opacity-[0.45]" />
+      <Shapes shapes={shapesC} className="hidden min-[1600px]:block opacity-[0.45]" />
     </div>
   );
 }
