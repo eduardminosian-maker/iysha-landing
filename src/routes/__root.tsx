@@ -115,7 +115,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               description:
                 "Живые знакомства и нетворкинг в Ереване: встречи по воскресеньям, бесплатное участие, начинаем с личной встречи.",
               areaServed: { "@type": "City", name: "Ереван" },
-              sameAs: ["https://t.me/iysha_yerevan"],
             },
             {
               "@type": "WebSite",
