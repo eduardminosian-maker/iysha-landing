@@ -82,14 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Клуб живых знакомств для совместного предпринимательства и не только.",
+          "Живые знакомства для совместного предпринимательства и не только. Нетворкинг в Ереване: встречи по воскресеньям, бесплатно.",
       },
       { name: "author", content: "IYSHA" },
       { property: "og:title", content: "Знакомства. Нетворкинг. Ереван." },
       {
         property: "og:description",
         content:
-          "Клуб живых знакомств для совместного предпринимательства и не только.",
+          "Живые знакомства для совместного предпринимательства и не только. Нетворкинг в Ереване: встречи по воскресеньям, бесплатно.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "IYSHA" },
@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               url: "https://iysha.am/",
               logo: "https://iysha.am/favicon.png",
               description:
-                "Клуб живых знакомств и нетворкинга в Ереване: небольшие регулярные встречи, бесплатное участие, вход после встречи с участником.",
+                "Живые знакомства и нетворкинг в Ереване: встречи по воскресеньям, бесплатное участие, начинаем с личной встречи.",
               areaServed: { "@type": "City", name: "Ереван" },
               sameAs: ["https://t.me/iysha_yerevan"],
             },

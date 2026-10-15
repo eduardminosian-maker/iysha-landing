@@ -10,9 +10,9 @@ export const Route = createFileRoute("/")({
     ],
     meta: [
       { title: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
-      { name: "description", content: "Клуб живых знакомств для совместного предпринимательства и не только. Вход после личной встречи." },
+      { name: "description", content: "Живые знакомства для совместного предпринимательства и не только. Нетворкинг в Ереване: встречи по воскресеньям, бесплатно." },
       { property: "og:title", content: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
-      { property: "og:description", content: "Клуб живых знакомств для совместного предпринимательства и не только." },
+      { property: "og:description", content: "Живые знакомства для совместного предпринимательства и не только. Нетворкинг в Ереване: встречи по воскресеньям, бесплатно." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "yandex-verification", content: "a3591098d7eb6200" },
@@ -112,12 +112,12 @@ function Index() {
           <em className="font-medium text-[#c4572e]">Ереван.</em>
         </h1>
         <p className="mt-4 max-w-xl sm:mt-6 text-[clamp(0.85rem,min(2vh,4vw),1.2rem)] leading-relaxed text-[#1a1612]/70">
-          <span className="block">Клуб живых знакомств</span>
+          <span className="block">Живые знакомства</span>
           <span className="block">
             для совместного предпринимательства
             <span className="max-md:block"> и не только</span>
           </span>
-          <span className="block">Вход после личной встречи</span>
+          <span className="block">Начнем с личной встречи</span>
           <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date} · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
