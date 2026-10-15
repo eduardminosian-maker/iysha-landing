@@ -7,7 +7,7 @@ import { APPLY_URL } from "@/lib/apply";
 import { PageLayout } from "@/components/page-layout";
 
 const description =
-  "Ответы на частые вопросы о сообществе IYSHA: как вступить, как проходят встречи, сколько это стоит и на каком языке мы общаемся.";
+  "Ответы на частые вопросы о сообществе IYSHA: как вступить, как проходят встречи и сколько это стоит.";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
