@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 type Word = {
   text: string;
   x: number; // % of the viewport width
@@ -61,12 +63,34 @@ export const phoneWords: Word[] = [
   { text: "ИДЕИ", x: 10, y: 94, kind: "caps", color: "#1a1612", size: 0.85, rotate: 14 },
 ];
 
-export function Words({ words, className }: { words: Word[]; className: string }) {
+export function Words({ words, className, avoidColumn }: { words: Word[]; className: string; avoidColumn?: boolean }) {
+  const root = useRef<HTMLDivElement>(null);
+  const [touching, setTouching] = useState<Set<string>>(new Set());
+  // Words may only be fully visible outside the text column; any word that reaches into it is made lighter.
+  useEffect(() => {
+    if (!avoidColumn) return;
+    const measure = () => {
+      const el = root.current;
+      if (!el) return;
+      const half = 21.5 * parseFloat(getComputedStyle(document.documentElement).fontSize) + 8; // 43rem column / 2 + margin
+      const mid = window.innerWidth / 2;
+      const next = new Set<string>();
+      el.querySelectorAll<HTMLElement>("[data-w]").forEach((n) => {
+        const r = n.getBoundingClientRect();
+        if (r.width > 0 && r.right > mid - half && r.left < mid + half) next.add(n.dataset["w"]!);
+      });
+      setTouching(next);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [avoidColumn]);
   return (
-    <div className={`absolute inset-0 ${className}`}>
+    <div ref={root} className={`absolute inset-0 ${className}`}>
       {words.map((w) => (
         <span
           key={w.text}
+          data-w={w.text}
           className={`absolute whitespace-nowrap ${
             w.kind === "script" ? "font-script font-normal" : "font-semibold uppercase tracking-[0.32em]"
           } ${w.kind === "v" ? "rotate-180 [writing-mode:vertical-rl]" : ""}`}
@@ -77,7 +101,7 @@ export function Words({ words, className }: { words: Word[]; className: string }
             fontSize: `${w.size}rem`,
             transform: w.rotate ? `rotate(${w.rotate}deg)` : undefined,
             letterSpacing: w.kind === "script" ? "-0.03em" : undefined,
-            opacity: w.fade ? 0.6 : undefined,
+            opacity: touching.has(w.text) ? (w.kind === "v" ? 0 : 0.35) : w.fade ? 0.6 : undefined,
           }}
         >
           {w.text}
@@ -87,47 +111,48 @@ export function Words({ words, className }: { words: Word[]; className: string }
   );
 }
 
-type Shape = { x: number; y: number; k: "tri" | "sq" | "ring" | "star" | "hex" | "dot"; c: string; w: number; r: number }; // x, y: centre in % of the screen
+type Shape = { x: number; y: number; k: "tri" | "sq" | "ring" | "star" | "hex"; c: string; w: number; r: number }; // x, y: centre in % of the screen
 
 // Simple geometric decorations, only in the free space (not under the text column, the words, the circles or the arc).
 // The free space depends on the screen width, so there is one hand-checked set per width range.
 const shapesA: Shape[] = [
-  { x: 5.0, y: 82.0, k: "hex", c: "#d98a63", w: 34, r: 330 },
-  { x: 93.5, y: 81.0, k: "dot", c: "#3b402d", w: 22, r: 210 },
+  { x: 5.0, y: 82.0, k: "hex", c: "#1a1612", w: 34, r: 330 },
+  { x: 93.5, y: 81.0, k: "ring", c: "#6f655a", w: 22, r: 210 },
 ];
 const shapesB: Shape[] = [
-  { x: 4.5, y: 29.0, k: "sq", c: "#3b402d", w: 22, r: 75 },
-  { x: 5.0, y: 81.0, k: "tri", c: "#d98a63", w: 40, r: 105 },
-  { x: 16.0, y: 56.0, k: "star", c: "#c4572e", w: 22, r: 270 },
-  { x: 84.5, y: 56.5, k: "sq", c: "#c4572e", w: 28, r: 195 },
-  { x: 92.0, y: 39.0, k: "ring", c: "#3b402d", w: 40, r: 75 },
-  { x: 93.0, y: 81.0, k: "tri", c: "#3b402d", w: 40, r: 60 },
+  { x: 4.5, y: 29.0, k: "sq", c: "#c4572e", w: 22, r: 75 },
+  { x: 5.0, y: 81.0, k: "tri", c: "#c4572e", w: 40, r: 105 },
+  { x: 16.0, y: 56.0, k: "star", c: "#1a1612", w: 22, r: 270 },
+  { x: 84.5, y: 56.5, k: "sq", c: "#1a1612", w: 28, r: 195 },
+  { x: 92.0, y: 39.0, k: "ring", c: "#c4572e", w: 40, r: 75 },
+  { x: 93.0, y: 81.0, k: "tri", c: "#6f655a", w: 40, r: 60 },
 ];
 const shapesC: Shape[] = [
   { x: 3.5, y: 80.0, k: "sq", c: "#c4572e", w: 22, r: 90 },
-  { x: 4.5, y: 29.0, k: "sq", c: "#3b402d", w: 28, r: 135 },
-  { x: 15.0, y: 7.5, k: "ring", c: "#3b402d", w: 28, r: 75 },
-  { x: 15.0, y: 33.5, k: "dot", c: "#3b402d", w: 40, r: 135 },
-  { x: 19.0, y: 58.5, k: "tri", c: "#d98a63", w: 40, r: 75 },
-  { x: 21.0, y: 85.0, k: "sq", c: "#d98a63", w: 22, r: 150 },
-  { x: 23.0, y: 42.5, k: "ring", c: "#c4572e", w: 22, r: 285 },
-  { x: 77.0, y: 46.5, k: "dot", c: "#3b402d", w: 34, r: 30 },
-  { x: 77.5, y: 70.5, k: "ring", c: "#d98a63", w: 34, r: 225 },
-  { x: 83.0, y: 58.0, k: "dot", c: "#d98a63", w: 28, r: 225 },
-  { x: 85.0, y: 81.0, k: "star", c: "#3b402d", w: 28, r: 15 },
-  { x: 90.5, y: 35.0, k: "ring", c: "#c4572e", w: 34, r: 180 },
-  { x: 92.5, y: 82.5, k: "tri", c: "#c4572e", w: 40, r: 165 },
+  { x: 4.5, y: 29.0, k: "sq", c: "#6f655a", w: 28, r: 135 },
+  { x: 15.0, y: 7.5, k: "ring", c: "#1a1612", w: 28, r: 75 },
+  { x: 15.0, y: 33.5, k: "ring", c: "#6f655a", w: 40, r: 135 },
+  { x: 19.0, y: 58.5, k: "tri", c: "#6f655a", w: 40, r: 75 },
+  { x: 21.0, y: 85.0, k: "sq", c: "#c4572e", w: 22, r: 150 },
+  { x: 23.0, y: 42.5, k: "ring", c: "#6f655a", w: 22, r: 285 },
+  { x: 77.0, y: 46.5, k: "ring", c: "#6f655a", w: 34, r: 30 },
+  { x: 77.5, y: 70.5, k: "ring", c: "#c4572e", w: 34, r: 225 },
+  { x: 83.0, y: 58.0, k: "ring", c: "#6f655a", w: 28, r: 225 },
+  { x: 85.0, y: 81.0, k: "star", c: "#c4572e", w: 28, r: 15 },
+  { x: 90.5, y: 35.0, k: "ring", c: "#1a1612", w: 34, r: 180 },
+  { x: 92.5, y: 82.5, k: "tri", c: "#1a1612", w: 40, r: 165 },
   { x: 95.0, y: 66.0, k: "star", c: "#c4572e", w: 22, r: 210 },
 ];
 
+// Thin, crisp outlines only (no fill, no transparency); the line colour varies.
 function ShapeIcon({ k, c }: { k: Shape["k"]; c: string }) {
+  const line = { fill: "none", stroke: c, strokeWidth: 1.6, strokeLinejoin: "round" as const, vectorEffect: "non-scaling-stroke" as const };
   switch (k) {
-    case "tri": return <polygon points="12,3 22,20 2,20" fill={c} />;
-    case "sq": return <rect x="4" y="4" width="16" height="16" fill={c} />;
-    case "ring": return <circle cx="12" cy="12" r="8" fill="none" stroke={c} strokeWidth="2.5" />;
-    case "dot": return <circle cx="12" cy="12" r="7" fill={c} />;
-    case "hex": return <polygon points="12,2 20.7,7 20.7,17 12,22 3.3,17 3.3,7" fill="none" stroke={c} strokeWidth="2.5" strokeLinejoin="round" />;
-    case "star": return <polygon points="12,2 14.9,8.9 22,9.5 16.6,14.3 18.2,21.5 12,17.7 5.8,21.5 7.4,14.3 2,9.5 9.1,8.9" fill={c} />;
+    case "tri": return <polygon points="12,3 22,20 2,20" {...line} />;
+    case "sq": return <rect x="4" y="4" width="16" height="16" {...line} />;
+    case "ring": return <circle cx="12" cy="12" r="9" {...line} />;
+    case "hex": return <polygon points="12,2 20.7,7 20.7,17 12,22 3.3,17 3.3,7" {...line} />;
+    case "star": return <polygon points="12,2 14.9,8.9 22,9.5 16.6,14.3 18.2,21.5 12,17.7 5.8,21.5 7.4,14.3 2,9.5 9.1,8.9" {...line} />;
   }
 }
 
@@ -165,11 +190,11 @@ export function WordMural({ variant }: {
       <svg className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
         <path d="M62 -2 C 69 8, 83 8, 90 -2" stroke="#c4572e" strokeWidth="1.3" vectorEffect="non-scaling-stroke" />
       </svg>
-      <Words words={desktop} className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
+      <Words words={desktop} avoidColumn className="max-md:hidden opacity-[0.2] md:max-lg:opacity-[0.1]" />
       <Words words={phoneWords} className="md:hidden opacity-[0.15]" />
-      <Shapes shapes={shapesA} className="hidden min-[1024px]:max-[1279px]:block opacity-[0.45]" />
-      <Shapes shapes={shapesB} className="hidden min-[1280px]:max-[1599px]:block opacity-[0.45]" />
-      <Shapes shapes={shapesC} className="hidden min-[1600px]:block opacity-[0.45]" />
+      <Shapes shapes={shapesA} className="hidden min-[1024px]:max-[1279px]:block" />
+      <Shapes shapes={shapesB} className="hidden min-[1280px]:max-[1599px]:block" />
+      <Shapes shapes={shapesC} className="hidden min-[1600px]:block" />
     </div>
   );
 }
