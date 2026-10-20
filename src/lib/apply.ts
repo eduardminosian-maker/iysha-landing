@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 // One place for the "apply" link and the next meeting, so the whole site stays in sync.
-export const APPLY_URL =
-  "https://t.me/zarazakupidon?text=" + encodeURIComponent("Привет! Хочу подать заявку на встречу.");
+// No prefilled text on purpose: the person has to decide what to send (a video message) on their own.
+export const APPLY_URL = "https://t.me/zarazakupidon";
 
 // Meetings are every Sunday at 13:00, Yerevan time (UTC+4, no daylight saving).
 const MEETING_WEEKDAY = 0; // Sunday

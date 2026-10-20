@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Words, phoneWords } from "@/components/word-mural";
-import { APPLY_URL, useNextMeeting } from "@/lib/apply";
+import { ApplyDialog } from "@/components/apply-dialog";
+import { useNextMeeting } from "@/lib/apply";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,7 +56,7 @@ const muralWords: MuralWord[] = [
 ];
 
 const steps = [
-  "Отправь кружок или голосовое в Telegram",
+  "Отправь видеосообщение в Telegram",
   "Дождись предложения встречи (ее предлагают не всегда)",
   "Определяем, идем ли вместе дальше",
   "Если идем, ты в комьюнити",
@@ -121,14 +122,14 @@ function Index() {
           <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date} · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
-          <a
-            href={APPLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-11 items-center gap-2 rounded-full bg-[#1a1612] px-5 text-[15px] font-bold sm:h-12 sm:px-8 sm:text-base text-[#f3ece1] transition-colors hover:bg-black"
-          >
-            Подать заявку <ArrowRight aria-hidden="true" className="size-4" />
-          </a>
+          <ApplyDialog>
+            <button
+              type="button"
+              className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full bg-[#1a1612] px-5 text-[15px] font-bold sm:h-12 sm:px-8 sm:text-base text-[#f3ece1] transition-colors hover:bg-black"
+            >
+              Подать заявку <ArrowRight aria-hidden="true" className="size-4" />
+            </button>
+          </ApplyDialog>
           <Link
             to="/about"
             className="inline-flex h-11 items-center rounded-full border border-[#1a1612]/30 px-5 text-[15px] font-semibold sm:h-12 sm:px-7 sm:text-base transition-colors hover:bg-[#1a1612]/5"

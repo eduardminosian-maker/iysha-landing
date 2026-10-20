@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { APPLY_URL } from "@/lib/apply";
+import { ApplyDialog } from "@/components/apply-dialog";
 import { AccordionList } from "@/components/accordion-list";
 import { PageLayout } from "@/components/page-layout";
 
@@ -189,11 +189,11 @@ function AboutPage() {
       list={<AccordionList idPrefix="idea" items={ideaItems} dense="desktop" />}
       actions={
         <>
-          <Button asChild className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
-            <a href={APPLY_URL} target="_blank" rel="noopener noreferrer">
+          <ApplyDialog>
+            <Button className="h-12 rounded-full bg-[#1a1612] px-8 text-base font-bold text-[#f3ece1] hover:bg-black md:h-[clamp(2.5rem,5.5vh,3rem)]">
               Подать заявку <ArrowRight aria-hidden="true" />
-            </a>
-          </Button>
+            </Button>
+          </ApplyDialog>
           <Link
             to="/faq"
             className="inline-flex items-center justify-center rounded-full border border-primary/40 px-8 py-2.5 text-base font-semibold text-foreground transition-colors hover:bg-accent md:py-[clamp(0.3rem,1vh,0.625rem)]"
