@@ -7,6 +7,7 @@ export function AccordionList({
   items,
   dense = false,
   scrollToTitle = true,
+  initialOpen = "",
 }: {
   idPrefix: string;
   items: { title: string; content: React.ReactNode }[];
@@ -14,8 +15,10 @@ export function AccordionList({
   dense?: boolean | "desktop" | "fit";
   /** When false, opening or closing a question never moves the page: the answer just opens downwards. */
   scrollToTitle?: boolean;
+  /** Id of the item that is already open when the page loads (e.g. "idea-0"). */
+  initialOpen?: string;
 }) {
-  const [openSection, setOpenSection] = useState<string>("");
+  const [openSection, setOpenSection] = useState<string>(initialOpen);
 
   const handleValueChange = (value: string) => {
     if (!scrollToTitle) {

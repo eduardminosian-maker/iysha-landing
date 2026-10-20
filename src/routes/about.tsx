@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ApplyDialog } from "@/components/apply-dialog";
@@ -6,6 +6,8 @@ import { AccordionList } from "@/components/accordion-list";
 import { PageLayout } from "@/components/page-layout";
 
 export const Route = createFileRoute("/about")({
+  // /about?open=who opens "Кому у нас будет хорошо?" right away (used by links from the FAQ)
+  validateSearch: (search: Record<string, unknown>): { open?: "who" } => (search["open"] === "who" ? { open: "who" } : {}),
   head: () => ({
     links: [{ rel: "canonical", href: "https://iysha.am/about" }],
     meta: [
@@ -183,10 +185,11 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
 ];
 
 function AboutPage() {
+  const { open } = useSearch({ from: "/about" });
   return (
     <PageLayout
       title="В чем идея"
-      list={<AccordionList idPrefix="idea" items={ideaItems} dense="desktop" />}
+      list={<AccordionList idPrefix="idea" items={ideaItems} dense="desktop" initialOpen={open === "who" ? "idea-0" : ""} />}
       actions={
         <>
           <ApplyDialog>
