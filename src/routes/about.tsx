@@ -163,14 +163,11 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
         </p>
         <p>
           Если вам откликается такая система знакомств, обратитесь к{" "}
-          <a
-            href="https://t.me/zarazakupidon"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-primary underline underline-offset-4"
-          >
-            zarazakupidon
-          </a>
+          <ApplyDialog>
+            <button type="button" className="cursor-pointer font-semibold text-primary underline underline-offset-4">
+              zarazakupidon
+            </button>
+          </ApplyDialog>
           .
         </p>
       </>
