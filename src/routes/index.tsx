@@ -109,7 +109,7 @@ function Index() {
           className="mb-3 h-[clamp(2.5rem,8vh,6.5rem)] w-auto sm:mb-5 sm:h-[clamp(3.5rem,11vh,6.5rem)]"
         />
         <h1 className="font-display text-[clamp(2.4rem,min(9vh,12vw),7rem)] font-medium leading-[0.95] tracking-tight">
-          Знакомства.<br />Нетворкинг.<br />
+          Знакомства.<br />Комьюнити.<br />
           <em className="font-medium text-[#c4572e]">Ереван.</em>
         </h1>
         <p className="mt-4 max-w-xl sm:mt-6 text-[clamp(0.85rem,min(2vh,4vw),1.2rem)] leading-relaxed text-[#1a1612]/70">
