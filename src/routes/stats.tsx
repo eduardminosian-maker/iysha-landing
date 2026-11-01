@@ -126,6 +126,12 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen bg-[#f3ece1] px-4 py-8 text-[#1a1612] sm:px-8">
       <div className="mx-auto max-w-4xl">
+        <a
+          href="/"
+          className="mb-4 inline-flex h-10 items-center rounded-full border border-[#1a1612]/30 px-4 text-sm font-semibold"
+        >
+          ← На главную
+        </a>
         <h1 className="font-display text-4xl font-medium">Статистика</h1>
         {children}
       </div>
