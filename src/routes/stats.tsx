@@ -169,8 +169,6 @@ function Report({ rows, days, setDays, reload }: { rows: Row[]; days: number; se
     };
   }, [rows, days]);
 
-  const detail = (r: Row) => [r.referrer, r.tag ? `метка: ${r.tag}` : null].filter(Boolean).join(" · ") || "—";
-
   return (
     <Shell>
       <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -188,64 +186,35 @@ function Report({ rows, days, setDays, reload }: { rows: Row[]; days: number; se
         </button>
       </div>
 
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className="mt-6 grid grid-cols-2 gap-3">
         <Big n={data.total} label="Посещений" />
-        <Big n={data.opened} label="Открыли окно заявки" />
         <Big n={data.clicked} label="Нажали «Подать заявку»" />
       </div>
 
       <Section title="Откуда пришли">
-        <Table head={["Источник", "Посещений", "Открыли окно", "Нажали"]}>
+        <Table head={["Источник", "Посещений", "Нажали «Подать заявку»"]}>
           {data.sources.map(([name, s]) => (
             <tr key={name}>
-              <td>{name}</td>
+              <td className="font-semibold">{name}</td>
               <td>{s.visits}</td>
-              <td>{s.opened}</td>
               <td>{s.clicked}</td>
             </tr>
           ))}
         </Table>
+        {data.sources.length === 0 && <p className="px-3 py-2 text-sm text-[#1a1612]/60">Пока посещений нет.</p>}
       </Section>
 
-      <Section title="Нажали «Подать заявку» (самые свежие сверху)">
-        <Table head={["Когда", "Откуда", "Подробности", "Устройство", "Страница"]}>
+      <Section title="Кто нажал «Подать заявку» (свежие сверху)">
+        <Table head={["Когда", "Откуда", "Устройство"]}>
           {data.clicks.map((r, i) => (
             <tr key={i}>
               <td className="whitespace-nowrap">{timeFmt.format(new Date(r.created_at))}</td>
               <td className="font-semibold">{r.source}</td>
-              <td className="break-all">{detail(r)}</td>
               <td>{r.device ?? "—"}</td>
-              <td>{r.path}</td>
             </tr>
           ))}
         </Table>
-        {data.clicks.length === 0 && <p className="mt-2 text-sm text-[#1a1612]/60">Пока нажатий нет.</p>}
-      </Section>
-
-      <Section title="Какие страницы смотрели">
-        <Table head={["Страница", "Просмотров"]}>
-          {data.pages.map(([path, n]) => (
-            <tr key={path}>
-              <td>{path}</td>
-              <td>{n}</td>
-            </tr>
-          ))}
-        </Table>
-      </Section>
-
-      <Section title="Последние посещения">
-        <Table head={["Когда", "Откуда", "Подробности", "Устройство", "Страницы", "Заявка"]}>
-          {data.recent.map((v, i) => (
-            <tr key={i}>
-              <td className="whitespace-nowrap">{timeFmt.format(new Date(v.first.created_at))}</td>
-              <td className="font-semibold">{v.first.source}</td>
-              <td className="break-all">{detail(v.first)}</td>
-              <td>{v.first.device ?? "—"}</td>
-              <td>{[...v.pages].join(", ") || "—"}</td>
-              <td>{v.clicked ? "нажал" : v.opened ? "открыл окно" : "—"}</td>
-            </tr>
-          ))}
-        </Table>
+        {data.clicks.length === 0 && <p className="px-3 py-2 text-sm text-[#1a1612]/60">Пока нажатий нет.</p>}
       </Section>
     </Shell>
   );

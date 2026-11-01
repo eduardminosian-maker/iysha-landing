@@ -15,6 +15,18 @@ const TAGS: Record<string, string> = {
   threads: "Threads",
   tg: "Telegram",
   telegram: "Telegram",
+  yt: "YouTube",
+  youtube: "YouTube",
+  li: "LinkedIn",
+  linkedin: "LinkedIn",
+  vk: "ВКонтакте",
+  wa: "WhatsApp",
+  whatsapp: "WhatsApp",
+  tiktok: "TikTok",
+  x: "X (Twitter)",
+  twitter: "X (Twitter)",
+  mail: "Почта",
+  email: "Почта",
 };
 
 const HOSTS: [RegExp, string][] = [
@@ -33,6 +45,8 @@ const HOSTS: [RegExp, string][] = [
   [/(^|\.)linkedin\.com$/, "LinkedIn"],
   [/(^|\.)(vk\.com|vk\.ru)$/, "ВКонтакте"],
   [/(^|\.)(wa\.me|whatsapp\.com)$/, "WhatsApp"],
+  [/(^|\.)tiktok\.com$/, "TikTok"],
+  [/(^|\.)(x\.com|twitter\.com|t\.co)$/, "X (Twitter)"],
 ];
 
 function randomId() {
