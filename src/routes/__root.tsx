@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { track } from "@/lib/track";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -173,6 +174,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  // Count every page the person opens (not the private /stats page)
+  useEffect(() => {
+    const count = (path: string) => {
+      if (path !== "/stats") track("visit", path);
+    };
+    count(router.state.location.pathname);
+    return router.subscribe("onResolved", (e) => {
+      if (e.pathChanged) count(e.toLocation.pathname);
+    });
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
