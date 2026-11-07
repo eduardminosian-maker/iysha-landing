@@ -1,0 +1,38 @@
+# Weekly check, so nobody has to remember anything:
+# 1) asks the stats database a harmless question (counts as activity, so the free Supabase project is not paused);
+# 2) checks that iysha.am opens;
+# 3) re-enables this schedule (GitHub switches schedules off after 60 days without repo activity).
+# If something is wrong, the run fails and GitHub sends an email.
+name: Weekly keep-alive
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stats database answers
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 10 \
+            -X POST "https://qaokvyyupyaoqkntcvai.supabase.co/rest/v1/rpc/stats_get" \
+            -H "apikey: sb_publishable_dMW-MbfvGoHyRT6FBzTP7g__6DvUFlq" \
+            -H "Content-Type: application/json" \
+            -d '{"pw":"keep-alive","days":1}')
+          echo "database: $code"
+          test "$code" = "200"
+      - name: Site opens
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 10 https://iysha.am/)
+          echo "site: $code"
+          test "$code" = "200"
+      - name: Keep this schedule switched on
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable keep-alive.yml --repo "$GITHUB_REPOSITORY"
