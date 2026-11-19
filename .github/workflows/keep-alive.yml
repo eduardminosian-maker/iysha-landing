@@ -1,8 +1,8 @@
 # Weekly check, so nobody has to remember anything:
 # 1) asks the stats database a harmless question (counts as activity, so the free Supabase project is not paused);
-# 2) checks that iysha.am opens;
-# 3) re-enables this schedule (GitHub switches schedules off after 60 days without repo activity).
-# If something is wrong, the run fails and GitHub sends an email.
+# 2) checks that iysha.am opens and shows the real page;
+# 3) re-enables this schedule (GitHub switches schedules off after 60 days without repo activity);
+# 4) sends a plain-Russian email: "всё в порядке" or "что-то не так" (needs the RESEND_API_KEY secret).
 name: Weekly keep-alive
 
 on:
@@ -17,22 +17,64 @@ permissions:
 jobs:
   ping:
     runs-on: ubuntu-latest
+    env:
+      DB_URL: https://qaokvyyupyaoqkntcvai.supabase.co
+      DB_KEY: sb_publishable_dMW-MbfvGoHyRT6FBzTP7g__6DvUFlq
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      MAIL_TO: eduardminosian@gmail.com
     steps:
       - name: Stats database answers
+        id: db
         run: |
           code=$(curl -s -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 10 \
-            -X POST "https://qaokvyyupyaoqkntcvai.supabase.co/rest/v1/rpc/stats_get" \
-            -H "apikey: sb_publishable_dMW-MbfvGoHyRT6FBzTP7g__6DvUFlq" \
-            -H "Content-Type: application/json" \
+            -X POST "$DB_URL/rest/v1/rpc/stats_get" \
+            -H "apikey: $DB_KEY" -H "Content-Type: application/json" \
             -d '{"pw":"keep-alive","days":1}')
           echo "database: $code"
           test "$code" = "200"
-      - name: Site opens
+
+      - name: Site opens and shows the page
+        id: site
         run: |
-          code=$(curl -s -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 10 https://iysha.am/)
+          code=$(curl -s -o page.html -w "%{http_code}" --retry 3 --retry-delay 10 https://iysha.am/)
           echo "site: $code"
           test "$code" = "200"
+          grep -q "Подать заявку" page.html
+          css=$(grep -o 'href="[^"]*\.css"' page.html | head -1 | sed 's/href="//;s/"$//')
+          test -n "$css"
+          case "$css" in http*) url="$css" ;; *) url="https://iysha.am$css" ;; esac
+          ccode=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+          echo "styles: $ccode"
+          test "$ccode" = "200"
+
       - name: Keep this schedule switched on
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow enable keep-alive.yml --repo "$GITHUB_REPOSITORY"
+        run: gh workflow enable keep-alive.yml --repo "$GITHUB_REPOSITORY" || true
+
+      - name: Send the email
+        if: always()
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then echo "no email key, skipping"; exit 0; fi
+          if [ "${{ steps.db.outcome }}" = "success" ] && [ "${{ steps.site.outcome }}" = "success" ]; then
+            subject="✅ Сайт IYSHA работает"
+            html="<p>Привет!</p><p>Еженедельная проверка прошла: сайт <b>iysha.am</b> открывается и выглядит как надо, статистика работает.</p><p>Делать ничего не нужно.</p>"
+          else
+            subject="❌ С сайтом IYSHA что-то не так"
+            html="<p>Привет!</p><p>Еженедельная проверка нашла проблему.</p><ul>"
+            [ "${{ steps.site.outcome }}" != "success" ] && html="$html<li>Сайт <b>iysha.am</b> не открывается или выглядит неправильно. Открой его сам с телефона и напиши мне.</li>"
+            [ "${{ steps.db.outcome }}" != "success" ] && html="$html<li>Не отвечает база статистики. Зайди в Supabase и нажми Restore, если проект на паузе.</li>"
+            html="$html</ul>"
+          fi
+          python3 - "$subject" "$html" > mail.json <<'PY'
+          import json, os, sys
+          print(json.dumps({"from": "IYSHA <onboarding@resend.dev>", "to": [os.environ["MAIL_TO"]], "subject": sys.argv[1], "html": sys.argv[2]}))
+          PY
+          curl -sS -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" -H "Content-Type: application/json" \
+            -d @mail.json
+
+      - name: Fail the run if something was wrong
+        if: steps.db.outcome != 'success' || steps.site.outcome != 'success'
+        run: exit 1
