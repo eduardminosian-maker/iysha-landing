@@ -7,7 +7,7 @@ import { ApplyDialog } from "@/components/apply-dialog";
 import { PageLayout } from "@/components/page-layout";
 
 const description =
-  "Ответы на частые вопросы о сообществе IYSHA: есть ли чат, есть ли шанс у начинающего предпринимателя и почему на встречах не больше шести человек.";
+  "Ответы на частые вопросы о сообществе IYSHA: есть ли чат и есть ли шанс у начинающего предпринимателя.";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
