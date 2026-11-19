@@ -70,7 +70,7 @@ jobs:
           fi
           python3 - "$subject" "$html" > mail.json <<'PY'
           import json, os, sys
-          print(json.dumps({"from": "IYSHA <onboarding@resend.dev>", "to": [os.environ["MAIL_TO"]], "subject": sys.argv[1], "html": sys.argv[2]}))
+          print(json.dumps({"from": "IYSHA <site@iysha.am>", "to": [os.environ["MAIL_TO"]], "subject": sys.argv[1], "html": sys.argv[2]}))
           PY
           curl -sS -X POST https://api.resend.com/emails \
             -H "Authorization: Bearer $RESEND_API_KEY" -H "Content-Type: application/json" \
