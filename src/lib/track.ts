@@ -79,7 +79,15 @@ function detectSource(): { source: string; referrer: string | null; tag: string 
     /* no referrer */
   }
   const ua = navigator.userAgent;
-  const inApp = /Instagram/i.test(ua) ? "Instagram" : /FBAN|FBAV|FB_IAB/i.test(ua) ? "Facebook" : /Threads/i.test(ua) ? "Threads" : null;
+  const inApp = /Instagram/i.test(ua)
+    ? "Instagram"
+    : /FBAN|FBAV|FB_IAB/i.test(ua)
+      ? "Facebook"
+      : /Threads/i.test(ua)
+        ? "Threads"
+        : /musical_ly|BytedanceWebview|TikTok|trill/i.test(ua)
+          ? "TikTok"
+          : null;
   const tagSource = tag ? (TAGS[tag] ?? tag) : null;
   const source = tagSource ?? refSource ?? inApp ?? "Напрямую";
   return { source, referrer: referrer ?? (inApp && !refSource ? `внутри приложения ${inApp}` : null), tag };
@@ -93,6 +101,8 @@ function enabled() {
     /* ignore */
   }
   if (navigator.webdriver) return false;
+  // robots and link-preview fetchers are not people
+  if (/bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit|embedly|whatsapp\/|telegrambot/i.test(navigator.userAgent)) return false;
   return true;
 }
 
