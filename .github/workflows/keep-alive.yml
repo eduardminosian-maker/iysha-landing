@@ -40,7 +40,7 @@ jobs:
           code=$(curl -s -o page.html -w "%{http_code}" --retry 3 --retry-delay 10 https://iysha.am/)
           echo "site: $code"
           test "$code" = "200"
-          echo "size: $(wc -c < page.html)"; grep -o "Подать[^<]\{0,20\}" page.html | head -3; grep -o "<title>[^<]*" page.html; grep -o "href=\"[^\"]*\.css[^\"]*\"" page.html | head -3
+          echo "size: $(wc -c < page.html)"; head -c 2500 page.html | tr "\n" " " | sed "s/</[/g"; echo; grep -o "stylesheet[^>]\{0,120\}" page.html | head -3; grep -c "заявк" page.html; grep -o "Подать[^<]\{0,20\}" page.html | head -3; grep -o "<title>[^<]*" page.html; grep -o "href=\"[^\"]*\.css[^\"]*\"" page.html | head -3
           grep -q "Подать заявку" page.html
           css=$(grep -o 'href="[^"]*\.css"' page.html | head -1 | sed 's/href="//;s/"$//')
           test -n "$css"
