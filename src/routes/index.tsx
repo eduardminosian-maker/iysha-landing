@@ -117,7 +117,10 @@ function Index() {
           <span className="block">
             для совместного предпринимательства
           </span>
-          <span className="block">Встречи, из которых рождаются совместные проекты</span>
+          <span className="block">
+            Встречи, из которых рождаются
+            <span className="block">совместные проекты</span>
+          </span>
           <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date}, 13:00 · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
