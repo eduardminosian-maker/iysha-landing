@@ -11,9 +11,9 @@ export const Route = createFileRoute("/")({
     ],
     meta: [
       { title: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
-      { name: "description", content: "Живые знакомства для совместного предпринимательства и не только. Нетворкинг в Ереване: встречи по воскресеньям, бесплатно." },
+      { name: "description", content: "Живые знакомства для совместного предпринимательства. Встречи, из которых рождаются совместные проекты. Нетворкинг в Ереване: по воскресеньям в 13:00, бесплатно." },
       { property: "og:title", content: "Знакомства. Нетворкинг. Ереван. — IYSHA" },
-      { property: "og:description", content: "Живые знакомства для совместного предпринимательства и не только. Нетворкинг в Ереване: встречи по воскресеньям, бесплатно." },
+      { property: "og:description", content: "Живые знакомства для совместного предпринимательства. Встречи, из которых рождаются совместные проекты. Нетворкинг в Ереване: по воскресеньям в 13:00, бесплатно." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "yandex-verification", content: "a3591098d7eb6200" },
@@ -118,7 +118,7 @@ function Index() {
             для совместного предпринимательства
           </span>
           <span className="block">Встречи, из которых рождаются совместные проекты</span>
-          <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date} · бесплатно</span>
+          <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date}, 13:00 · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
           <ApplyDialog>
