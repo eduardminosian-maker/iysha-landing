@@ -116,9 +116,8 @@ function Index() {
           <span className="block">Живые знакомства</span>
           <span className="block">
             для совместного предпринимательства
-            <span className="max-md:block"> и не только</span>
           </span>
-          <span className="block">Начнем с личной встречи</span>
+          <span className="block">Встречи, из которых рождаются совместные проекты</span>
           <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date} · бесплатно</span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
