@@ -140,15 +140,6 @@ const ideaItems: { title: string; content: React.ReactNode }[] = [
         <p>
           В начале нетворкинг-активности не стоит делать поспешные выводы, если никто из людей, пришедших на встречу, не показался подходящим под ваши запросы. Польза может прилететь с задержкой. Главное не останавливаться, пробовать снова.
         </p>
-        <p>
-          Если вам откликается такая система знакомств, обратитесь к{" "}
-          <ApplyDialog>
-            <button type="button" className="cursor-pointer font-semibold text-primary underline underline-offset-4">
-              zarazakupidon
-            </button>
-          </ApplyDialog>
-          .
-        </p>
       </>
     ),
   },
