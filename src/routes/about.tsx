@@ -164,7 +164,7 @@ function AboutPage() {
           >
             FAQ
           </Link>
-          <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
+          <Link to="/" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground max-md:mt-3 max-md:inline-flex max-md:min-h-12 max-md:items-center max-md:px-6">
             ← На главную
           </Link>
         </>
