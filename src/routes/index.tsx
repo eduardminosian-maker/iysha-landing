@@ -97,8 +97,8 @@ function Index() {
         <Words words={phoneWords} className="md:hidden opacity-[0.18]" />
       </div>
 
-      <header className="relative z-10 flex items-center justify-center px-6 py-3 sm:px-12 sm:py-5">
-        <span className="text-sm font-bold tracking-[0.4em]">IYSHA</span>
+      <header className="relative z-10 flex items-center justify-center px-6 pb-3 pt-6 sm:px-12 sm:pb-5 sm:pt-7">
+        <img src="/iysha-logo-line.svg?v=1" alt="IYSHA" width={420} height={110} className="block h-auto w-[clamp(6.5rem,15vh,9.5rem)]" />
       </header>
 
       <section className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 text-center">
