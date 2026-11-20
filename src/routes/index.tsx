@@ -121,7 +121,7 @@ function Index() {
             Встречи, из которых рождаются
             <span className="block">совместные проекты</span>
           </span>
-          <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date}, 13:00 · бесплатно</span>
+          <span key={meeting.k} suppressHydrationWarning className="block font-semibold text-[#1a1612]">Ближайшая встреча {meeting.date}, 13:00<span className="max-md:hidden"> · </span><span className="max-md:block">бесплатно</span></span>
         </p>
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8 sm:flex-wrap sm:gap-3">
           <ApplyDialog>
